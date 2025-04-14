@@ -25,5 +25,11 @@ jobs:
       - name: Install Expo CLI
         run: npm install -g expo-cli
 
-      - name: Run Expo build
-        run: expo build:android
+      - name: Run build for Android
+        run: npm run android  
+
+      - name: Run tests
+        run: npm run test  
+
+      - name: Lint code
+        run: npm run lint 
