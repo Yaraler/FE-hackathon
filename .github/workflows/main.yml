@@ -2,9 +2,9 @@ name: Build Check
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
@@ -17,10 +17,17 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install dependencies
         run: npm install
 
-      - name: Run build
-        run: npm run build
+      - name: Install Expo CLI
+        run: npm install -g expo-cli
+
+
+      - name: Run tests
+        run: npm run test
+
+      - name: Lint code
+        run: npm run lint
