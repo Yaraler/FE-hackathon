@@ -22,5 +22,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run build
-        run: npm run build
+      - name: Install Expo CLI
+        run: npm install -g expo-cli
+
+      - name: Run Expo build
+        run: expo build:android
