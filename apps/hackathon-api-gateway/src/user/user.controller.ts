@@ -9,7 +9,7 @@ export class UserController {
   constructor(private readonly userService: UserService) { }
   @Get("findAll")
   findAll() {
-    return this.userService.findAll()
+    return "user"
   }
   @Get("get")
   @UseGuards(JwtAuthGuard)
