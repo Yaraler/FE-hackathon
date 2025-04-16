@@ -93,7 +93,9 @@
     "moduleNameMapper": {
       "^@app/contracts(|/.*)$": "<rootDir>/libs/contracts/src/$1",
       "^@app/database(|/.*)$": "<rootDir>/libs/database/src/$1",
+      "^@app/filter(|/.*)$": "<rootDir>/libs/filter/src/$1",
       "^@app/guards(|/.*)$": "<rootDir>/libs/guards/src/$1",
+      "^@app/my-logger(|/.*)$": "<rootDir>/libs/my-logger/src/$1",
       "^@app/strategy(|/.*)$": "<rootDir>/libs/strategy/src/$1"
     }
   }
