@@ -1,8 +1,20 @@
 import { NestFactory } from '@nestjs/core';
 import { WorkoutsModule } from './workouts.module';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { RpcHttpExceptionFilter } from '@app/filter';
 
 async function bootstrap() {
-  const app = await NestFactory.create(WorkoutsModule);
-  await app.listen(process.env.port ?? 3000);
+  const app = await NestFactory.createMicroservice<MicroserviceOptions>(WorkoutsModule, {
+    transport: Transport.RMQ,
+    options: {
+      urls: ['amqp://localhost:5673'],
+      queue: 'workouts_queue',
+      queueOptions: {
+        durable: false
+      },
+    },
+  });
+  app.useGlobalFilters(new RpcHttpExceptionFilter());
+  await app.listen();
 }
 bootstrap();

@@ -1,4 +1,4 @@
-import { BadRequestException, Inject, Injectable, InternalServerErrorException, Logger, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, HttpException, Inject, Injectable, InternalServerErrorException, Logger, UnauthorizedException } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import * as bcrypt from 'bcrypt';
 import { ValidateUserDto } from '@libs/contracts/users/validateUser.dto';
@@ -114,8 +114,12 @@ export class AuthService {
         refreshToken,
       };
     } catch (err) {
-      this.logger.error(err)
-      throw new InternalServerErrorException('Token create error')
+      if (!(err instanceof HttpException)) {
+        throw new InternalServerErrorException('Token create error')
+
+      }
+      throw err;
+
     }
   }
 
