@@ -1,8 +1,10 @@
-import { Image, Text, View } from 'react-native';
+import { Image, View } from 'react-native';
 
 export default function HomeScreen() {
   return (
     <View>
+      Login
     </View>
   );
 }
+
