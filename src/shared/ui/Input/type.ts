@@ -1,7 +1,6 @@
 
 
 export interface InputProps {
-  onChange: (value: any) => void;
-  onBlur: () => void;
-  value: any;
+  field: any
+  placeholder: string
 }

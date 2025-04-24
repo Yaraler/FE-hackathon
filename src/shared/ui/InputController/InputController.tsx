@@ -1,16 +1,20 @@
 import { Input } from "../Input/Input"
 import { Controller } from 'react-hook-form';
-export const InputController = (props: {}) => {
+import { InputControllerProps } from "./type";
+export const InputController: React.FC<InputControllerProps> = ({ errors, control, input }) => {
   return (
     <Controller
       control={control}
-      name="name"
-      rules={rules}
-      render={({ field: { onChange, onBlur, value } }) => (
+      name={input.name}
+      rules={input.validation}
+      defaultValue=""
+      render={({ field }) => (
         <Input
-          onChange={onChange}
-          onBlur={onBlur}
-          value={value} />
+          field={field}
+          placeholder={input.placeholder}
+          error={errors[input.name]?.message}
+          type={input.type}
+        />
       )} />
   )
 }
