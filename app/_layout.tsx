@@ -1,12 +1,11 @@
 import { useFonts } from 'expo-font';
 import { Slot } from 'expo-router';
-import { SafeAreaView, Text, View } from 'react-native';
+import { SafeAreaView, } from 'react-native';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
 import { QueryClient } from '@tanstack/react-query';
 import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { PaperProvider } from 'react-native-paper';
-import { Button } from 'react-native-paper';
 
 export default function RootLayout() {
   const [loaded] = useFonts({
