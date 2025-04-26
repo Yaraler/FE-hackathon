@@ -1,8 +1,13 @@
-import { Image, Text, View } from 'react-native';
+import { useTokenStore } from '@/processes/tokenStorage/tokenStorage';
+import { Redirect } from 'expo-router';
 
 export default function HomeScreen() {
-  return (
-    <View>
-    </View>
-  );
+  const { refreshToken } = useTokenStore();
+
+  if (refreshToken) {
+    return <Redirect href={'/main'} />
+  } else {
+    return <Redirect href={'/auth/login'} />
+  }
+
 }

@@ -1,22 +1,28 @@
 import { axiosPost } from "@/shared/api/axios.post";
-import axios from 'axios'
+import { useMutation, UseMutationResult } from "@tanstack/react-query"
+import { IloginBody, IRegistrationBody } from "@/shared/type/Auth";
+import { AuthResponse } from "./type";
+import { IAuthVariables } from "../type/IAuthVariables";
+import { AxiosError } from "axios";
+import { IError } from "@/shared/type/Api/IError";
 
-import { useMutation } from "@tanstack/react-query"
-type LoginResponse = {
-  token: string;
-  userId: string;
-};
 
-// Тип тела запроса
-type LoginBody = string;
-export const useEmailSubscription = () => {
-  return useMutation({
-    mutationFn: (email: string) => axios.post("", email),
-  })
-};
-export const useLoginCaptainMutation = () => {
 
-  return useMutation({
-    mutationFn: (body: LoginBody) => axiosPost<LoginBody, any>("", body),
+
+export const useAuthMutation = (): UseMutationResult<AuthResponse, AxiosError<IError>, IAuthVariables> => {
+  return useMutation<AuthResponse, AxiosError<IError>, IAuthVariables>({
+    mutationFn: ({ body, typePage }: IAuthVariables) => {
+      if (typePage == "login") {
+        return axiosPost<IloginBody, AuthResponse>("auth/login", body)
+      } else {
+        return axiosPost<IRegistrationBody, AuthResponse>("auth/registration", body)
+      }
+    },
   });
 };
+
+
+
+
+
+

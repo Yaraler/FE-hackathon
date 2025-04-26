@@ -1,5 +1,5 @@
 
 
 export interface AuthProps {
-  typePage: "login" | "registartion"
+  typePage: "login" | "registration";
 }
