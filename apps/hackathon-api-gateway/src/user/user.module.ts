@@ -2,7 +2,8 @@ import { Module } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-
+import { MulterModule } from '@nestjs/platform-express';
+import * as Multer from 'multer';
 
 @Module({
   imports: [
@@ -19,6 +20,12 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         },
       },
     ]),
+    MulterModule.register({
+      storage: Multer.memoryStorage(),
+      limits: {
+        fileSize: 10 * 1024 * 1024,
+      },
+    }),
   ],
   controllers: [UserController],
   providers: [UserService],

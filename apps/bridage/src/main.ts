@@ -7,7 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(BridageModule, {
     transport: Transport.RMQ,
     options: {
-      urls: ['amqp://localhost:5674'],
+      urls: ['amqp://localhost:5672'],
       queue: 'bridage_queue',
       queueOptions: {
         durable: false

@@ -3,5 +3,7 @@ import { BridageService } from './bridage.service';
 
 @Controller('bridage')
 export class BridageController {
-  constructor(private readonly bridageService: BridageService) {}
+  constructor(
+    private readonly bridageService: BridageService
+  ) { }
 }

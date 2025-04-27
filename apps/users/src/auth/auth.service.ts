@@ -81,7 +81,10 @@ export class AuthService {
       });
 
       const user = await this.userService.findById(payload.sub);
+      if (!user) {
+        throw new BadRequestException('The user id dosent find.');
 
+      }
       const isMatch = await bcrypt.compare(refreshToken, user.refreshToken);
       if (!isMatch) throw new UnauthorizedException('Invalid refresh token');
 

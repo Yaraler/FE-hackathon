@@ -28,6 +28,15 @@
         "tsConfigPath": "libs/contracts/tsconfig.lib.json"
       }
     },
+    "aws": {
+      "type": "library",
+      "root": "shared/aws",
+      "entryFile": "index",
+      "sourceRoot": "shared/aws",
+      "compilerOptions": {
+        "tsConfigPath": "libs/contracts/tsconfig.lib.json"
+      }
+    },
     "database": {
       "type": "library",
       "root": "libs/database",

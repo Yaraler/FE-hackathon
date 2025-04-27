@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { BridageController } from './bridage.controller';
-import { BridageService } from './bridage.service';
+import { RequirementsBridageModule } from './requirements_bridage/requirements_bridage.module';
+import { DatabaseModule } from '@libs/database/src';
 
 @Module({
-  imports: [],
-  controllers: [BridageController],
-  providers: [BridageService],
+  imports: [RequirementsBridageModule, BridageModule, DatabaseModule],
+  controllers: [],
+  providers: [],
 })
-export class BridageModule {}
+export class BridageModule { }
