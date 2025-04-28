@@ -48,7 +48,6 @@ export class AuthService {
         name: name,
         email: email,
         password: hashedPassword,
-        bridage: undefined,
         dailyWorkout: [],
       })
       const user = await this.userRepository.save(newUser);

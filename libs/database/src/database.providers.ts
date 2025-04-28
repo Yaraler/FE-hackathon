@@ -1,9 +1,9 @@
 import { DataSource } from 'typeorm';
-import { Bridage } from 'apps/bridage/src/bridage/entity/bridage.entity';
 import { DailyWorkouts } from 'apps/workouts/src/daily-workouts/entity/daily-workouts.entity';
 import { User } from 'apps/users/src/user/entity/user.entity';
 import configuration from './config/configuration';
-import { RequirementsBridage } from 'apps/bridage/src/requirements_bridage/entity/requirements-bridage.entity';
+import { Brigade } from 'apps/brigade/src/brigade/entity/brigade.entity';
+import { RequirementsBrigade } from 'apps/brigade/src/requirements_brigade/entity/requirements-brigade.entity';
 const config = configuration();
 export const databaseProviders = [
   {
@@ -13,7 +13,7 @@ export const databaseProviders = [
         type: 'mongodb',
         url: config.db_url,
         database: 'test',
-        entities: [User, Bridage, DailyWorkouts, RequirementsBridage],
+        entities: [User, Brigade, DailyWorkouts, RequirementsBrigade],
         synchronize: true,
       });
 

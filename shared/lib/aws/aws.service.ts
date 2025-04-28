@@ -19,22 +19,25 @@ export class AwsService {
   }
 
   async createPhoto(file) {
-    const name = this.generateArticle();
-    if (!file || !file.buffer) {
-      throw new Error('Invalid file: buffer is missing.');
-    }
-
     try {
+
+      const name = this.generateArticle();
+      if (!file || !file.buffer) {
+        throw new Error('Invalid file: buffer is missing.');
+      }
+      console.log(this.awsConfig.bucketName)
+
       const params = {
         Bucket: this.awsConfig.bucketName,
         Key: name,
-        Body: file.buffer,
+        Body: Buffer.from(file.buffer.data),
         ContentType: file.mimetype,
       };
-
+      console.log(params)
       await this.s3.send(new PutObjectCommand(params));
 
       const fileUrl = `https://${this.awsConfig.bucketName}.s3.${this.awsConfig.region}.amazonaws.com/${name}`;
+      console.log(fileUrl)
       return fileUrl;
     } catch (error) {
       console.error('S3 Upload Error:', error);

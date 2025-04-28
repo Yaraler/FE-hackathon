@@ -1,6 +1,6 @@
 import { IsNumber, IsString } from "class-validator";
 
-export class CreateRequirementsBridage {
+export class CreateRequirementsBrigade {
   @IsString()
   exercise: string;
   @IsNumber()

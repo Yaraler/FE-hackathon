@@ -24,6 +24,6 @@ import { GuardsModule } from '@libs/guards/src';
     ]),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy,],
+  providers: [AuthService, JwtStrategy],
 })
 export class AuthModule { }

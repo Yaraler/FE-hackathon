@@ -10,13 +10,13 @@
   "monorepo": true,
   "root": "apps/hackathon-api-gateway",
   "projects": {
-    "bridage": {
+    "brigade": {
       "type": "application",
-      "root": "apps/bridage",
+      "root": "apps/brigade",
       "entryFile": "main",
-      "sourceRoot": "apps/bridage/src",
+      "sourceRoot": "apps/brigade/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/bridage/tsconfig.app.json"
+        "tsConfigPath": "apps/brigade/tsconfig.app.json"
       }
     },
     "contracts": {
@@ -24,15 +24,6 @@
       "root": "libs/contracts",
       "entryFile": "index",
       "sourceRoot": "libs/contracts/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/contracts/tsconfig.lib.json"
-      }
-    },
-    "aws": {
-      "type": "library",
-      "root": "shared/aws",
-      "entryFile": "index",
-      "sourceRoot": "shared/aws",
       "compilerOptions": {
         "tsConfigPath": "libs/contracts/tsconfig.lib.json"
       }

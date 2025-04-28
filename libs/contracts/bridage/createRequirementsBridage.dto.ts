@@ -1,8 +1,8 @@
 import { IsString } from "class-validator";
-import { CreateRequirementsBridage } from "./createRequirementBridage";
+import { CreateRequirementsBrigade } from "./createRequirementBridage";
 
 
-export class CreateRequirementsBridageDto extends CreateRequirementsBridage {
+export class CreateRequirementsBrigadeDto extends CreateRequirementsBrigade {
   @IsString()
   id: string
 }
