@@ -3,7 +3,7 @@ import { IAuthLink } from "../type";
 
 
 export const loginLinkData: IAuthLink = {
-  text: "Sign in",
+  text: "Log in",
   link: "/auth/login" as ExternalPathString
 }
 
@@ -11,3 +11,4 @@ export const registrationLinkData: IAuthLink = {
   text: "Sign up",
   link: "/auth/registration" as ExternalPathString
 }
+

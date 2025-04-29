@@ -1,5 +1,5 @@
 import { useForm, SubmitHandler } from "react-hook-form"
-import { Button, View } from "react-native"
+import {Button, StyleSheet, View} from "react-native"
 import { InputController } from "@/shared/ui/InputController/InputController"
 import { AuthProps } from "@/shared/type/AuthProps/type"
 import { LoginFormData } from "../data/login.data"
@@ -8,7 +8,6 @@ import { ItemButton } from "@/shared/ui/ItemButton/ItemButton"
 import { IloginBody, IRegistrationBody } from "@/shared/type/Auth"
 import { useAuth } from "../../model/hooks/useAuth"
 import { ErrorField } from "@/shared/ui/ErrorField/ErrorField"
-
 export const AuthForm: React.FC<AuthProps> = ({ typePage }) => {
   const isLogin = typePage === 'login'
   const { handlerAuth, isError, error } = useAuth()
@@ -27,7 +26,11 @@ export const AuthForm: React.FC<AuthProps> = ({ typePage }) => {
     <View >
       {
         authFormData.map((elem, index) =>
-          <InputController key={index} input={elem} control={control} errors={errors} />
+          <InputController  key={index}
+                            input={elem}
+                            control={control}
+                            errors={errors}
+                           />
         )
       }
       <ErrorField error={error?.response?.data.message} />
@@ -36,3 +39,6 @@ export const AuthForm: React.FC<AuthProps> = ({ typePage }) => {
 
   )
 }
+
+
+

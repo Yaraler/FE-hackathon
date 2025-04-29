@@ -14,8 +14,12 @@ export const AuthLink: React.FC<AuthProps> = ({ typePage }) => {
   };
   return (
     <Pressable onPress={handlePress}>
-      <Text style={[styles.link, { color: theme.colors.primary }]}>
-        {typePage == "login" ? registrationLinkData.text : loginLinkData.text}
+      <Text>Already have an account?</Text>
+      <Text style={[
+          styles.link,
+          typePage === 'login' ? styles.login : styles.register
+      ]}>
+        {typePage === 'login' ? registrationLinkData.text : loginLinkData.text}
       </Text>
     </Pressable>
 
@@ -25,5 +29,16 @@ const styles = StyleSheet.create({
   link: {
     textDecorationLine: 'underline',
     fontWeight: '500',
+    paddingTop: 20,
+    textAlign: 'center',
   },
+  register:{
+    fontSize: 30,
+    color:'red'
+
+  },
+  login:{
+    fontSize: 10,
+
+  }
 });

@@ -16,6 +16,8 @@ export const ItemButton: React.FC<ButtonProps> = ({ title, handleSubmit }) => {
 }
 const styles = StyleSheet.create({
   button: {
+    marginTop: -10,
     width: 300,
+    marginLeft:51,
   },
 });
