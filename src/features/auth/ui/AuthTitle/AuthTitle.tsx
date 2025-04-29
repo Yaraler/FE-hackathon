@@ -11,9 +11,9 @@ export const AuthTitle: React.FC<AuthTitleProps> = ({ text }) => {
 }
 
 const styles = StyleSheet.create({
-  title: {
-    paddingTop: 52,
-    paddingBottom: 262,
+  title:{
+    paddingTop:52,
+    paddingBottom:140,
     textAlign: 'center',
     color: 'black',
     fontWeight: '700',
