@@ -1,24 +1,22 @@
 import { Title } from 'react-native-paper';
 import { AuthTitleProps } from './type';
-import {create} from "zustand";
 import { StyleSheet } from 'react-native';
 
 export const AuthTitle: React.FC<AuthTitleProps> = ({ text }) => {
   return (
     <Title style={styles.title}>
-      {text == 'login' ? 'brand': "register"}
+      {text == 'login' ? 'brand' : "register"}
     </Title>
-
   )
 }
 
 const styles = StyleSheet.create({
-  title:{
-    paddingTop:52,
-    paddingBottom:262,
+  title: {
+    paddingTop: 52,
+    paddingBottom: 262,
     textAlign: 'center',
-    color:'black',
-    fontWeight:'700',
-  alignItems:'center',
+    color: 'black',
+    fontWeight: '700',
+    alignItems: 'center',
   }
 })
