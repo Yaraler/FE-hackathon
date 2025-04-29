@@ -1,5 +1,6 @@
 import { IloginBody } from "./ILoginBody";
 
 export interface IRegistrationBody extends IloginBody {
-  password: string
+  name: string
+  brigadId: string
 }
