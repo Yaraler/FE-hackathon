@@ -4,40 +4,38 @@ import {View} from "react-native";
 import {StyleSheet} from "react-native";
 
 
-export const Input: React.FC<InputProps> = ({typePage, field, placeholder, type = "default" }) => {
-  return (
-      <View>
-    <TextInput style={[
-        styles.input,
-        typePage === 'login' ? styles.login : styles.register
-    ]}
-      keyboardType={type}
-      label={placeholder}
-      mode="outlined"
-      theme={{}}
-      {...field}
-    />
-</View>
-  )
-}
+
+
+    export const Input: React.FC<InputProps> = ({typePage,field, placeholder, type = "default"}) => {
+        return (
+            <View style={{alignItems:"center"}}>
+                <TextInput style={[
+                    styles.input,
+                    typePage === 'login' ? styles.login : styles.register
+                ]}
+                           keyboardType={type}
+                           label={placeholder}
+
+                           theme={{primary: 'blue', underlineColor: 'transparent',roundness:110}}
+                           {...field}
+                />
+            </View>
+        )
+    }
+
 
 const styles = StyleSheet.create({
     input:{
         backgroundColor: '',
-        marginLeft:41,
+        borderWidth:1,
+        borderRadius:110,
         width: 330,
         height: 55,
     },
     login:{
-        backgroundColor: 'red',
-        color:"black",
+
     },
     register:{
-        backgroundColor:'blue',
-    },
-    colors:{
-         primary: 'blue',
-            underlineColor: 'transparent',
-        },
 
-    })
+    },
+})

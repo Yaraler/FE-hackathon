@@ -1,6 +1,6 @@
 import { AuthProps } from "@/shared/type/AuthProps/type";
 import { useRouter } from "expo-router";
-import { Text, StyleSheet, Pressable } from 'react-native';
+import { Text, StyleSheet, Pressable,View } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import { loginLinkData, registrationLinkData } from "./data/authLink.data";
 
@@ -13,16 +13,17 @@ export const AuthLink: React.FC<AuthProps> = ({ typePage }) => {
     router.navigate(url)
   };
   return (
-    <Pressable onPress={handlePress}>
-      <Text>Already have an account?</Text>
+    <Pressable style={{flexDirection:'row',justifyContent:'center',alignItems:'center',marginTop:30,}} onPress={handlePress}>
+
+      <Text style={{display:'flex',flexDirection:'row',alignItems:'center'}}>Already have an account?
       <Text style={[
           styles.link,
           typePage === 'login' ? styles.login : styles.register
       ]}>
         {typePage === 'login' ? registrationLinkData.text : loginLinkData.text}
       </Text>
+      </Text>
     </Pressable>
-
   )
 }
 const styles = StyleSheet.create({
@@ -31,14 +32,14 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     paddingTop: 20,
     textAlign: 'center',
+      fontSize: 16,
+
   },
   register:{
-    fontSize: 30,
-    color:'red'
 
   },
   login:{
-    fontSize: 10,
+
 
   }
 });
