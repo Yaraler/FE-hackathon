@@ -1,7 +1,6 @@
 import { User } from "apps/users/src/user/entity/user.entity";
-import { Column, Entity, ObjectIdColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ObjectIdColumn, OneToMany, } from "typeorm";
 import { ObjectId } from "mongodb";
-import { RequirementsBrigade } from "../../requirements_brigade/entity/requirements-brigade.entity";
 
 
 
@@ -13,8 +12,8 @@ export class Brigade {
   name: string
   @Column()
   description: string
-  @OneToMany(() => User, user => user.brigade)
-  users: User[];
+  @Column()
   image?: string
+  @Column()
+  requirementsBrigadeIds: string[];
 }
-

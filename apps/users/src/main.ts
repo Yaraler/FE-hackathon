@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { UsersModule } from './users.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { RpcHttpExceptionFilter } from '@app/filter';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(UsersModule, {
@@ -14,6 +15,7 @@ async function bootstrap() {
       },
     },
   });
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.useGlobalFilters(new RpcHttpExceptionFilter());
   await app.listen();
 }

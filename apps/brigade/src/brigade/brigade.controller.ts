@@ -10,8 +10,16 @@ export class BrigadeController {
     private readonly brigadeService: BrigadeService
   ) { }
   @MessagePattern("brigade.createBrigade")
-  async validateUser(data: CreateBrigadeFileDto) {
+  async createBrigade(data: CreateBrigadeFileDto) {
     return await this.brigadeService.createBrigade(data)
+  }
+  @MessagePattern("brigade.getBrigade")
+  async getBrigade() {
+    return await this.brigadeService.getBrigade()
+  }
+  @MessagePattern("brigade.getOneBrigade")
+  async getOneBrigade() {
+    return await this.brigadeService.getOneBrigade("")
   }
 
 }

@@ -14,4 +14,10 @@ export class BrigadeService {
     }
     return await firstValueFrom(this.brigadeClient.send("brigade.createBrigade", payload))
   }
+  async getBrigades() {
+    return await firstValueFrom(this.brigadeClient.send("brigade.getBrigade", {}))
+  }
+  async getBrigade(id: string) {
+    return await firstValueFrom(this.brigadeClient.send("brigade.getOneBrigade", { id }))
+  }
 }

@@ -8,4 +8,6 @@ export class RegistrationDto {
   email: string
   @IsString()
   name: string
+  @IsString()
+  brigadeId: string
 }

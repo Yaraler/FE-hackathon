@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, ObjectIdColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, ObjectIdColumn } from "typeorm";
 import { ObjectId } from "mongodb";
 import { Brigade } from "../../brigade/entity/brigade.entity";
 

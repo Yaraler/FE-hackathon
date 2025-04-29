@@ -10,7 +10,7 @@ import { CreateRequirementsBrigadeDto } from '@libs/contracts/bridage/createRequ
 export class RequirementsBrigadeService {
   constructor(
     @Inject('REQUIREMENT_BRIGADE_REPOSITORY')
-    private requirementsBrigade: Repository<RequirementsBrigade>,
+    private requirementsBrigadeRestory: Repository<RequirementsBrigade>,
     @Inject(forwardRef(() => BrigadeService))
     private readonly brigadeService: BrigadeService,
     @Inject('BRIGADE_REPOSITORY')
@@ -22,24 +22,36 @@ export class RequirementsBrigadeService {
       if (!brigade) {
         throw new BadRequestException('Brigade with the specified ID was not found.');
       }
-      const requirements = this.requirementsBrigade.create({
+      const requirements = this.requirementsBrigadeRestory.create({
         ...data,
         brigadeId: brigade._id.toString()
       });
-      const savedRequirements = await this.requirementsBrigade.save(requirements);
-
-
-
-      return { savedRequirements };
+      const savedRequirements = await this.requirementsBrigadeRestory.save(requirements);
+      await this.brigadeService.addRequirementRelation(brigade._id.toString(), savedRequirements._id)
+      return savedRequirements;
     } catch (error) {
       console.log(error)
-
       if (error instanceof BadRequestException) {
         throw error;
       }
       throw 'An unexpected error occurred';
     }
+  }
+  async getRequirementsByBrigade(brigadeId: string) {
+    try {
 
+      const requirements = this.requirementsBrigadeRestory.findBy({
+        where: {
+          brigadeId: brigadeId
+        }
+      })
+
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+      throw new InternalServerErrorException('An unexpected error occurred')
+    }
   }
   async createOneRequirementsBrigade(data: CreateRequirementsBrigadeDto) {
     try {
@@ -55,7 +67,7 @@ export class RequirementsBrigadeService {
       throw new InternalServerErrorException('An unexpected error occurred')
     }
   }
-  async createManyRequirementsBrigade(data: CreateRequirementsBrigade[], id: string) {
+  async createManyRequirementsBrigade(data: CreateRequirementsBrigade[], id: string): Promise<RequirementsBrigade[]> {
     try {
 
       const requirements = await Promise.all(
@@ -73,4 +85,5 @@ export class RequirementsBrigadeService {
       throw new InternalServerErrorException('An unexpected error occurred')
     }
   }
+
 }

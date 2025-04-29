@@ -1,10 +1,12 @@
 import { BadRequestException, forwardRef, Inject, Injectable, InternalServerErrorException } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { MongoRepository, Repository } from 'typeorm';
 import { ObjectId } from 'mongodb';
 import { RequirementsBrigadeService } from '../requirements_brigade/requirements_bridage.service';
 import { Brigade } from './entity/brigade.entity';
 import { CreateBrigadeFileDto } from '@libs/contracts/bridage/createBridage.dto';
 import { AwsService } from 'shared/lib/aws/aws.service';
+import { RequirementsBrigade } from '../requirements_brigade/entity/requirements-brigade.entity';
+import { error } from 'console';
 
 @Injectable()
 export class BrigadeService {
@@ -12,20 +14,22 @@ export class BrigadeService {
     @Inject(forwardRef(() => RequirementsBrigadeService))
     private readonly requirementsBrigadeService: RequirementsBrigadeService,
     @Inject('BRIGADE_REPOSITORY')
-    private readonly brigadeRepository: Repository<Brigade>,
+    private readonly brigadeRepository: MongoRepository<Brigade>,
     private awsService: AwsService
   ) { }
   async createBrigade(data: CreateBrigadeFileDto) {
     try {
       const { requirementsBrigade, file, ...dataBrigade } = data
-      let requirements
-      let imgURL
+      let requirements: RequirementsBrigade[] = []
+      let imgURL: string | undefined
       if (data.file) {
-        imgURL = this.awsService.createPhoto(file)
+        imgURL = await this.awsService.createPhoto(file)
       }
+      console.log(imgURL)
       const brigade = this.brigadeRepository.create({
         ...dataBrigade,
-        image: imgURL
+        image: imgURL,
+        requirementsBrigadeIds: []
       })
       const saveBrigade = await this.brigadeRepository.save(brigade)
       if (requirementsBrigade) {
@@ -41,6 +45,50 @@ export class BrigadeService {
         throw error;
       }
       throw new InternalServerErrorException('An unexpected error occurred');
+    }
+  }
+  async addRequirementRelation(brigadId: string, requirementsId: ObjectId) {
+    try {
+      const brigade = await this.findBrigadeById(brigadId)
+      if (!brigade) {
+        return
+      }
+      brigade?.requirementsBrigadeIds.push(requirementsId.toString())
+      await this.brigadeRepository.save(brigade)
+      return
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+      throw new InternalServerErrorException('An unexpected error occurred')
+    }
+
+  }
+  async getBrigade() {
+    try {
+      return this.brigadeRepository.aggregate([
+        {
+          $lookup: {
+            from: "requirements-brigade",
+            localField: "requirementsBrigadeIds",
+            foreignField: "_id",
+            as: "requirements"
+          }
+        }
+      ]).toArray();
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+      throw new InternalServerErrorException('An unexpected error occurred')
+    }
+  }
+  async getOneBrigade(id: string) {
+    try {
+      throw new BadRequestException("afaf")
+
+    } catch (error) {
+      throw error;
     }
   }
   async findBrigadeById(id: string) {

@@ -8,9 +8,14 @@ export class RpcHttpExceptionFilter implements RpcExceptionFilter<HttpException>
     const status = exception.getStatus();
     const response = exception.getResponse();
 
+    const message =
+      typeof response === 'string'
+        ? response
+        : (response as any)?.message || 'Unexpected error';
+
     return throwError(() => ({
       statusCode: status,
-      message: response,
+      message,
     }));
   }
 }
