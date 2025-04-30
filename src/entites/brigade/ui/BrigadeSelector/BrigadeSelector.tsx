@@ -8,7 +8,9 @@ import { BrigadeSelectorProps } from "./type";
 export const BrigadeSelector: React.FC<BrigadeSelectorProps> = ({ handlerSubmit, setValue }) => {
   const { data, isLoading, error } = useGetBrigadesQuery()
   const handlerChooseSubmit = async (id: string) => {
+    if (!id) return
     setValue("brigadId", id)
+    console.log(id)
     handlerSubmit()
   }
   if (isLoading && error) {

@@ -8,6 +8,6 @@ import { IError } from "@/shared/type/Api/IError";
 export const useGetBrigadesQuery = () => {
   return useQuery<IBrigade[], AxiosError<IError>>({
     queryKey: ["brigade"],
-    queryFn: async () => await axiosGet<IBrigade[]>({ path: "/brigade/get" }),
+    queryFn: async () => await axiosGet<IBrigade[]>({ path: "/brigade" }),
   });
 };
