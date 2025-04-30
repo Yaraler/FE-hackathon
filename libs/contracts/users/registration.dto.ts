@@ -9,5 +9,5 @@ export class RegistrationDto {
   @IsString()
   name: string
   @IsString()
-  brigadeId: string
+  brigadId: string
 }

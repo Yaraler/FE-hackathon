@@ -40,11 +40,7 @@ export class RequirementsBrigadeService {
   async getRequirementsByBrigade(brigadeId: string) {
     try {
 
-      const requirements = this.requirementsBrigadeRestory.findBy({
-        where: {
-          brigadeId: brigadeId
-        }
-      })
+
 
     } catch (error) {
       if (error instanceof BadRequestException) {

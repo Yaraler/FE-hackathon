@@ -11,6 +11,7 @@ export class UserService {
     private readonly logger: MyLoggerService,
   ) { }
 
+
   async findOne(email: string): Promise<any | undefined> {
     try {
       return await this.userRepository.findOne({
@@ -21,7 +22,6 @@ export class UserService {
       this.logger.error(error)
       throw new InternalServerErrorException('Get user failed.');
     }
-
   }
   async findById(id: string): Promise<any | undefined> {
     try {

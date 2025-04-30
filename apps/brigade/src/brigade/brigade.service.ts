@@ -7,6 +7,7 @@ import { CreateBrigadeFileDto } from '@libs/contracts/bridage/createBridage.dto'
 import { AwsService } from 'shared/lib/aws/aws.service';
 import { RequirementsBrigade } from '../requirements_brigade/entity/requirements-brigade.entity';
 import { error } from 'console';
+import { IBrigadeResponse } from '@libs/contracts/bridage/responseBrigade';
 
 @Injectable()
 export class BrigadeService {
@@ -83,9 +84,25 @@ export class BrigadeService {
       throw new InternalServerErrorException('An unexpected error occurred')
     }
   }
-  async getOneBrigade(id: string) {
+  async getOneBrigade(brigadeId: string): Promise<any> {
     try {
-      throw new BadRequestException("afaf")
+      const brigadeRepository = this.brigadeRepository;
+
+      return brigadeRepository.aggregate([
+        {
+          $match: {
+            _id: brigadeId
+          }
+        },
+        {
+          $lookup: {
+            from: "requirements-brigade",
+            localField: "requirementsBrigadeIds",
+            foreignField: "_id",
+            as: "requirements"
+          }
+        }
+      ])
 
     } catch (error) {
       throw error;

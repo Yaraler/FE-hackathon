@@ -10,6 +10,15 @@
   "monorepo": true,
   "root": "apps/hackathon-api-gateway",
   "projects": {
+    "aws": {
+      "type": "application",
+      "root": "shared/lib/aws",
+      "entryFile": "main",
+      "sourceRoot": "shared/lib/aws/src",
+      "compilerOptions": {
+        "tsConfigPath": "shared/lib/aws/tsconfig.app.json"
+      }
+    },
     "brigade": {
       "type": "application",
       "root": "apps/brigade",
@@ -73,6 +82,12 @@
         "tsConfigPath": "libs/my-logger/tsconfig.lib.json"
       }
     },
+    "shared": {
+      "type": "application",
+      "root": "shared/lib/",
+      "entryFile": "main",
+      "sourceRoot": "shared/lib/"
+    },
     "strategy": {
       "type": "library",
       "root": "libs/strategy",
@@ -80,6 +95,15 @@
       "sourceRoot": "libs/strategy/src",
       "compilerOptions": {
         "tsConfigPath": "libs/strategy/tsconfig.lib.json"
+      }
+    },
+    "user-indicator": {
+      "type": "application",
+      "root": "apps/user-indicator",
+      "entryFile": "main",
+      "sourceRoot": "apps/user-indicator/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/user-indicator/tsconfig.app.json"
       }
     },
     "users": {

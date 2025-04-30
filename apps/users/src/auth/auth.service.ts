@@ -39,7 +39,7 @@ export class AuthService {
 
   async registration(data: RegistrationDto): Promise<any> {
     try {
-      const { name, email, password, brigadeId } = data
+      const { name, email, password, brigadId } = data
       if (await this.userService.findOne(email)) {
         throw new BadRequestException('The email was already taken.');
       }
@@ -48,7 +48,7 @@ export class AuthService {
         name: name,
         email: email,
         password: hashedPassword,
-        brigadeId: brigadeId,
+        brigadeId: brigadId,
         dailyWorkout: [],
       })
       const user = await this.userRepository.save(newUser);
