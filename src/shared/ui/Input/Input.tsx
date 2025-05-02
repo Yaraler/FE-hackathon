@@ -10,11 +10,15 @@ export const Input: React.FC<InputProps> = ({ typePage, field, placeholder, type
   return (
     <View style={{ alignItems: "center" }}>
       <TextInput style={[
+
         styles.input,
         typePage === 'login' ? styles.login : styles.register
       ]}
         keyboardType={type}
-        label={placeholder}
+                 underlineColor="transparent"
+                 selectionColor="transparent"
+                 outlineColor="transparent"
+                 label={placeholder}
         value={field.value}
         onChangeText={field.onChange}
         theme={{ primary: 'blue', underlineColor: 'transparent', roundness: 110 }}
@@ -27,11 +31,17 @@ export const Input: React.FC<InputProps> = ({ typePage, field, placeholder, type
 
 const styles = StyleSheet.create({
   input: {
-    backgroundColor: '',
-    borderWidth: 1,
-    borderRadius: 110,
     width: 330,
     height: 55,
+    backgroundColor: 'white',
+    color: '',
+
+    paddingHorizontal: 15,
+    marginBottom:10,
+
+    borderWidth: 1,
+    borderRadius: 110,
+
   },
   login: {
 

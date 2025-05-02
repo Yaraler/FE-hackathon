@@ -12,6 +12,7 @@ import { useEffect, useState } from "react"
 import { BrigadeSelector } from "@/entites/brigade/ui/BrigadeSelector/BrigadeSelector"
 
 
+
 export const AuthForm: React.FC<AuthProps> = ({ typePage }) => {
   const isLogin = typePage === 'login'
   const { handlerAuth, isError, error } = useAuth()
@@ -45,9 +46,17 @@ export const AuthForm: React.FC<AuthProps> = ({ typePage }) => {
       }
       {stateRegister && <BrigadeSelector setValue={setValue} handlerSubmit={handleSubmit(onSubmit)} />}
       <ErrorField error={error?.response?.data.message} />
-      {typePage == "registration" && <ItemButton title="next" handleSubmit={handleSubmit(handlerSwitchPage)} />}
-      {typePage != "registration" && <ItemButton title="Submit" handleSubmit={handleSubmit(onSubmit)} />}
+      {typePage == "registration" &&
+          <ItemButton
+              title="Sign Up"
+              handleSubmit={handleSubmit(handlerSwitchPage)}
+          />
+        }
 
+      {typePage != "registration" &&
+          <ItemButton
+              title="Log in"
+              handleSubmit={handleSubmit(onSubmit)} />}
     </View>
 
   )

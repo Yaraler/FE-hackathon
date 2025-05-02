@@ -4,19 +4,20 @@ import { StyleSheet } from 'react-native';
 
 export const AuthTitle: React.FC<AuthTitleProps> = ({ text }) => {
   return (
-    <Title style={styles.title}>
-      {text == 'login' ? 'brand' : "register"}
+    <Title style={styles.subtitle}>
+   DO IT
     </Title>
   )
 }
 
 const styles = StyleSheet.create({
-  title:{
-    paddingTop:52,
-    paddingBottom:140,
-    textAlign: 'center',
-    color: 'black',
-    fontWeight: '700',
-    alignItems: 'center',
-  }
+    subtitle: {
+      color:'white',
+      fontSize: 24,
+      fontWeight: 700,
+      paddingBottom:140,
+      textAlign: 'center',
+      paddingTop:52,
+
+    },
 })
