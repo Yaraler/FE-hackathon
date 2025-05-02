@@ -25,20 +25,19 @@ export const AuthForm: React.FC<AuthFormProps> = ({ typePage, setStateRegister, 
     setValue,
   } = useForm<FormData>()
   const onSubmit = async (body: FormData) => {
-
-    await handlerAuth({ body, typePage });
+    await handlerAuth({ body, typePage, handlerZeroPage });
   };
+  const handlerZeroPage = () => {
+    setStateRegister(0)
+  }
   const handlerNextPage = () => {
     if (stateRegister != 2) setStateRegister(++stateRegister)
-    console.log(stateRegister)
   }
   const handlerPreviousPage = () => {
     if (stateRegister != 0) setStateRegister(--stateRegister)
-    console.log(stateRegister)
   }
 
   const authFormData = typePage == "login" ? LoginFormData : RegistrationFormData
-  console.log(error?.response?.data.message)
   return (
     <View >
       {stateRegister == 0 &&
