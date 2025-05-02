@@ -7,7 +7,7 @@ import { BrigadeSelectorProps } from "./type";
 import { BrigadeChooseInfo } from "../BrigadeChooseInfo/BrigadeChooseInfo";
 import { ITypePage } from "@/shared/type/ITypePage/ITypePage";
 
-export const BrigadeSelector: React.FC<BrigadeSelectorProps> = ({ handlerSubmit, setValue, stateRegister, handlerNextPage }) => {
+export const BrigadeSelector: React.FC<BrigadeSelectorProps> = ({ handlerSubmit, setValue, handlerPreviousPage, stateRegister }) => {
   const { data, isLoading, error } = useGetBrigadesQuery()
   const [brigade, setBrigade] = useState<IBrigade | undefined>()
   const handlerChooseSubmit = async (id: string) => {
@@ -20,23 +20,16 @@ export const BrigadeSelector: React.FC<BrigadeSelectorProps> = ({ handlerSubmit,
       load or error
     </Text>)
   }
-  const handlerBrigadeInfo = (data: IBrigade) => {
-    setBrigade(data)
-    handlerNextPage()
-  }
+  const handlerBrigadeInfo = (data: IBrigade) => setBrigade(data)
   return (
     <View>
-      {stateRegister == 1 &&
-        data?.map((elem: IBrigade) => (
+      {!brigade ?
+        data?.map((elem: IBrigade) =>
           <CardBrigade brigade={elem} key={elem._id} handler={() => handlerBrigadeInfo(elem)} />
-        ))
+        )
+        : null
+        //<BrigadeChooseInfo handlerSubmit={handlerChooseSubmit} brigade={brigade} handlerPreviousPage={handlerPreviousPage} />
       }
-      {stateRegister == 2 && brigade ? (
-        <BrigadeChooseInfo
-          handlerSubmit={handlerChooseSubmit}
-          brigade={brigade}
-        />
-      ) : null}
 
 
     </View>
