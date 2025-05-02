@@ -10,53 +10,73 @@ import { useAuth } from "../../model/hooks/useAuth"
 import { ErrorField } from "@/shared/ui/ErrorField/ErrorField"
 import { useEffect, useState } from "react"
 import { BrigadeSelector } from "@/entites/brigade/ui/BrigadeSelector/BrigadeSelector"
+import { AuthFormProps } from "./AuthFormProps"
 
 
 
-export const AuthForm: React.FC<AuthProps> = ({ typePage }) => {
+export const AuthForm: React.FC<AuthFormProps> = ({ typePage, setStateRegister, stateRegister }) => {
   const isLogin = typePage === 'login'
   const { handlerAuth, isError, error } = useAuth()
-  const [stateRegister, setStateRegister] = useState(false)
   type FormData = typeof isLogin extends true ? IloginBody : IRegistrationBody
   const {
     handleSubmit,
     control,
-    formState: { errors, isValid },
+    formState: { errors },
     setValue,
   } = useForm<FormData>()
   const onSubmit = async (body: FormData) => {
 
     await handlerAuth({ body, typePage });
   };
-  const handlerSwitchPage = () => {
-    setStateRegister(!stateRegister)
+  const handlerNextPage = () => {
+    if (stateRegister != 2) setStateRegister(++stateRegister)
+    console.log(stateRegister)
   }
+  const handlerPreviousPage = () => {
+    if (stateRegister != 0) setStateRegister(--stateRegister)
+    console.log(stateRegister)
+  }
+
   const authFormData = typePage == "login" ? LoginFormData : RegistrationFormData
   console.log(error?.response?.data.message)
   return (
     <View >
-      {!stateRegister &&
+      {stateRegister == 0 &&
         authFormData.map((elem, index) =>
-          <InputController key={index}
+          <InputController
+            key={index}
             input={elem}
+            typePage={typePage}
             control={control}
             errors={errors}
           />
         )
       }
-      {stateRegister && <BrigadeSelector setValue={setValue} handlerSubmit={handleSubmit(onSubmit)} />}
+      {stateRegister > 0 && <BrigadeSelector
+        stateRegister={stateRegister}
+        setValue={setValue}
+        handlerSubmit={handleSubmit(onSubmit)}
+        handlerNextPage={handlerNextPage}
+      />}
+
       <ErrorField error={error?.response?.data.message} />
-      {typePage == "registration" &&
-          <ItemButton
-              title="Sign Up"
-              handleSubmit={handleSubmit(handlerSwitchPage)}
-          />
-        }
+      {typePage == "registration" && stateRegister == 0 &&
+        <ItemButton
+          title="next"
+          handleSubmit={handleSubmit(handlerNextPage)}
+        />
+      }
+      {typePage == "registration" && stateRegister > 0 &&
+        <ItemButton
+          title="previous"
+          handleSubmit={handlerPreviousPage}
+        />
+      }
 
       {typePage != "registration" &&
-          <ItemButton
-              title="Log in"
-              handleSubmit={handleSubmit(onSubmit)} />}
+        <ItemButton
+          title="Log in"
+          handleSubmit={handleSubmit(onSubmit)} />}
     </View>
 
   )
