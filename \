@@ -10,15 +10,14 @@ function AuthText(props: { text: string }) {
 }
 
 export const Auth: React.FC<AuthProps> = ({ typePage }) => {
-  const [stateRegister, setStateRegister] = useState(0)
+  const [stateRegister, setStateRegister] = useState(false)
 
 
   return (
     <View style={styles.back}>
-      {!stateRegister && <AuthTitle text={typePage} />}
+      <AuthTitle text={typePage} />
       <AuthForm typePage={typePage} stateRegister={stateRegister} setStateRegister={setStateRegister} />
-      {!stateRegister && <AuthLink typePage={typePage} />}
-
+      <AuthLink typePage={typePage} />
 
     </View>
   )

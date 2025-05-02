@@ -8,12 +8,13 @@ export const CardBrigade: React.FC<CardBrigadeProps> = ({ brigade, handler }) =>
       <Image
         style={styles.brigadeImg}
         source={{
-          uri: brigade?.image
+
+          uri: brigade.image
         }}
         resizeMode="cover"
       />
-      <Text>{brigade?.name}</Text>
-      <ItemButton title="choose" handleSubmit={() => handler(brigade?._id)} />
+      <Text>{brigade.name}</Text>
+      <ItemButton title="choose" handleSubmit={() => handler(brigade._id)} />
     </View>
   )
 }

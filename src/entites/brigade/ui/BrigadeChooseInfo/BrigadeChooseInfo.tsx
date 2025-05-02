@@ -3,7 +3,7 @@ import { BrigadeChooseInfoProps } from "./type"
 import { BrigadeRequirements } from "../requirement/BrigadeRequirements/BrigadeRequirements"
 import { ItemButton } from "@/shared/ui/ItemButton/ItemButton"
 
-export const BrigadeChooseInfo: React.FC<BrigadeChooseInfoProps> = ({ brigade, handlerPreviousPage, handlerSubmit }) => {
+export const BrigadeChooseInfo: React.FC<BrigadeChooseInfoProps> = ({ brigade, handlerSubmit }) => {
 
   return (
     <View>

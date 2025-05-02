@@ -7,9 +7,11 @@ import { BrigadeSelectorProps } from "./type";
 import { BrigadeChooseInfo } from "../BrigadeChooseInfo/BrigadeChooseInfo";
 import { ITypePage } from "@/shared/type/ITypePage/ITypePage";
 
+
 export const BrigadeSelector: React.FC<BrigadeSelectorProps> = ({ handlerSubmit, setValue, stateRegister, handlerNextPage }) => {
   const { data, isLoading, error } = useGetBrigadesQuery()
   const [brigade, setBrigade] = useState<IBrigade | undefined>()
+
   const handlerChooseSubmit = async (id: string) => {
     if (!id) return
     setValue("brigadId", id)

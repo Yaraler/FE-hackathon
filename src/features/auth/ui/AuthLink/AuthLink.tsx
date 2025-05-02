@@ -4,6 +4,7 @@ import { useTheme } from 'react-native-paper';
 import { loginLinkData, registrationLinkData } from "./data/authLink.data";
 import { AuthProps } from "@/shared/type/AuthProps/type";
 
+
 export const AuthLink: React.FC<AuthProps> = ({ typePage }) => {
   const router = useRouter();
   const theme = useTheme();
@@ -16,6 +17,7 @@ export const AuthLink: React.FC<AuthProps> = ({ typePage }) => {
     <Pressable style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 30, }} onPress={handlePress}>
 
       <Text>Already have an account?
+
         <Text style={[
           styles.link,
           typePage === 'login' ? styles.login : styles.register
