@@ -22,16 +22,21 @@ export const ItemButton: React.FC<ButtonProps> = ({ title, handleSubmit, }) => {
 }
 const styles = StyleSheet.create({
   button: {
-    marginTop: 10,
+      width: 330,
+      height:55,
+
+      marginTop:0,
+      alignSelf: 'center',
+
     backgroundColor:'orange',
     color:'black',
-    width: 330,
-    alignSelf: 'center',
 
   },
   label:{
-    color:'black',
-    fontSize: 16,
+      textAlign:'center',
+      lineHeight: 30,
+      color:'black',
+    fontSize: 20,
     fontWeight: 700,
   }
 });
