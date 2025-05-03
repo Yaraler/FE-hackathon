@@ -4,6 +4,8 @@ import { CardBrigade } from "../CardBrigade/CardBrigade";
 import { IBrigade } from "../../type/IBirgade";
 import React from "react";
 import { BrigadeSelectorProps } from "./type";
+import { useNavigation } from "@react-navigation/native";
+
 
 export const BrigadeSelector: React.FC<BrigadeSelectorProps> = ({ handlerSubmit, setValue }) => {
   const { data, isLoading, error } = useGetBrigadesQuery()
