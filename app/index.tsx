@@ -9,5 +9,6 @@ export default function HomeScreen() {
   } else {
     return <Redirect href={'/auth/login'} />
   }
+  //       <AuthText text={"DO IT"} />
 
 }
