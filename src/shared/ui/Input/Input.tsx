@@ -8,12 +8,17 @@ import React, {useState} from 'react';
 
 export const Input: React.FC<InputProps> = ({typePage, field, placeholder, type = "default",secureTextEntry = false,showEyeIcon = false }) => {
   const [isSecure,setIsSecure] = useState(secureTextEntry)
+    const [isFocused, setIsFocused] = useState(false)
   return (
     <View style={{ alignItems: "center" }}>
       <TextInput style={[
         styles.input,
         typePage === 'login' ? styles.login : styles.register,
-          { borderRadius: 5 }
+          {
+              borderRadius: 28,
+              borderWidth:1,
+              borderColor: isFocused ? 'orange' : '#eee',
+          }
       ]}
                  keyboardType={type}
                  mode="flat"
@@ -22,14 +27,17 @@ export const Input: React.FC<InputProps> = ({typePage, field, placeholder, type 
                  onChangeText={field.onChange}
                  secureTextEntry={isSecure}
 
+                 onFocus={() => setIsFocused(true)}
+                 onBlush={() => setIsFocused(false)}
                  theme={{
                      colors: {
-                         primary: 'orange',
+                         primary: 'transperent',
                          background: 'white',
-                         placeholder: 'red',
+                         placeholder: isFocused ? 'orange' : 'gray',
                          text: 'black',
+                         underlineColor: 'transparent',
                      },
-                     // roundness: 4
+                     roundness: 28
       }}
                  underlineColor="transparent"
                  activeOutlineColor="transparent"
@@ -38,6 +46,7 @@ export const Input: React.FC<InputProps> = ({typePage, field, placeholder, type 
                          <TextInput.Icon
                              icon={isSecure ? 'eye-off' : 'eye'}
                              onPress={() => setIsSecure(!isSecure)}
+                             color={isFocused ? 'orange' : '#999'}
                          />
                      )
                  }
@@ -53,10 +62,11 @@ const styles = StyleSheet.create({
       width: 330,
       height: 55,
       backgroundColor:'white',
-      paddingHorizontal: 15,
-      marginBottom:20,
-      borderWidth: 1,
-      borderColor:'#eee',
+      paddingHorizontal: 24,
+      marginBottom:16,
+      overwlow:'hidden',
+      // borderWidth: 1,
+      // borderColor:'#eee',
   },
   login: {
 
