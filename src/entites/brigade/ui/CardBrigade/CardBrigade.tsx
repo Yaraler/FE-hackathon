@@ -1,21 +1,19 @@
-import { Image, StyleSheet, Text, View } from "react-native"
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { CardBrigadeProps } from "./type"
 import { ItemButton } from "@/shared/ui/ItemButton/ItemButton"
 
 export const CardBrigade: React.FC<CardBrigadeProps> = ({ brigade, handler }) => {
   return (
-    <View style={styles.card}>
+    <TouchableOpacity onPress={() => handler(brigade._id)} style={styles.card}>
       <Image
         style={styles.brigadeImg}
         source={{
-
           uri: brigade.image
         }}
         resizeMode="cover"
       />
       <Text>{brigade.name}</Text>
-      <ItemButton title="choose" handleSubmit={() => handler(brigade._id)} />
-    </View>
+    </TouchableOpacity>
   )
 }
 
