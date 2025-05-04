@@ -1,12 +1,15 @@
-import { Image, View } from 'react-native';
+import { Main } from '@/widgets/Main/ui/Main';
 
 export default function HomeScreen() {
   return (
-    <View>
-      Mai
 
-    </View>
+
+
+    <Main />
+
+
   );
 }
+
 
 

@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { useGetBrigadesQuery } from "../../api/useQuery"
 import { CardBrigade } from "../CardBrigade/CardBrigade";
 import { IBrigade } from "../../type/IBirgade";
@@ -28,7 +28,7 @@ export const BrigadeSelector: React.FC<BrigadeSelectorProps> = ({ handlerSubmit,
     handlerNextPage()
   }
   return (
-    <View>
+    <View style={styles.container}>
       {stateRegister == 1 &&
         <BrigadeSelectorCard brigades={data} handlerBrigadeInfo={handlerBrigadeInfo} />
 
@@ -45,3 +45,10 @@ export const BrigadeSelector: React.FC<BrigadeSelectorProps> = ({ handlerSubmit,
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+
+  container: {
+    height: 400
+  }
+})

@@ -10,8 +10,8 @@ export const ItemButton: React.FC<ButtonProps> = ({ title, handleSubmit, }) => {
       style={styles.button}
       labelStyle={styles.label}
       theme={{
-        colors:{
-        onPrimary: 'black',
+        colors: {
+          onPrimary: 'black',
 
         }
       }}
@@ -22,6 +22,7 @@ export const ItemButton: React.FC<ButtonProps> = ({ title, handleSubmit, }) => {
 }
 const styles = StyleSheet.create({
   button: {
+
       width: 330,
       height:55,
 
@@ -37,6 +38,7 @@ const styles = StyleSheet.create({
       lineHeight: 30,
       color:'black',
     fontSize: 20,
+
     fontWeight: 700,
   }
 });

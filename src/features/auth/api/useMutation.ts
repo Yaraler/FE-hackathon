@@ -15,7 +15,7 @@ export const useAuthMutation = (): UseMutationResult<AuthResponse, AxiosError<IE
       if (typePage == "login") {
         return axiosPost<IloginBody, AuthResponse>("auth/login", body)
       } else {
-        return axiosPost<IRegistrationBody, AuthResponse>("auth/registration", body)
+        return axiosPost("auth/registration", body)
       }
     },
   });
