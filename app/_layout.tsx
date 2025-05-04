@@ -1,5 +1,5 @@
 import { useFonts } from 'expo-font';
-import { Slot } from 'expo-router';
+import { Slot, Stack } from 'expo-router';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
 import { QueryClient } from '@tanstack/react-query';
 import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister';
@@ -36,6 +36,7 @@ export default function RootLayout() {
         persistOptions={{ persister }}
       >
         <PaperProvider>
+
           <Slot />
         </PaperProvider>
 

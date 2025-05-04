@@ -25,8 +25,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     backgroundColor: 'orange',
     color: 'black',
-    width: 300,
-    alignSelf: 'center',
+    width: 300, alignSelf: 'center',
 
   },
   label: {
