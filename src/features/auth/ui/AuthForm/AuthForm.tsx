@@ -39,47 +39,70 @@ export const AuthForm: React.FC<AuthFormProps> = ({ typePage, setStateRegister, 
 
   const authFormData = typePage == "login" ? LoginFormData : RegistrationFormData
   return (
-    <View >
-      {stateRegister == 0 &&
-        authFormData.map((elem, index) =>
-          <InputController
-            key={index}
-            input={elem}
-            typePage={typePage}
-            control={control}
-            errors={errors}
-          />
-        )
-      }
-      {stateRegister > 0 && <BrigadeSelector
-        stateRegister={stateRegister}
-        setValue={setValue}
-        handlerSubmit={handleSubmit(onSubmit)}
-        handlerNextPage={handlerNextPage}
-      />}
+      <View style={styles.container}>
+        <View style={styles.content}>
 
-      <ErrorField error={error?.response?.data.message} />
-      {typePage == "registration" && stateRegister == 0 &&
-        <ItemButton
-          title="next"
-          handleSubmit={handleSubmit(handlerNextPage)}
-        />
-      }
-      {typePage == "registration" && stateRegister > 0 &&
-        <ItemButton
-          title="previous"
-          handleSubmit={handlerPreviousPage}
-        />
-      }
+        {stateRegister == 0 && authFormData.map((elem, index) =>
+                <InputController
+                    key={index}
+                    input={elem}
+                    typePage={typePage}
+                    control={control}
+                    errors={errors}
+                />
+            )
+        }
+        {stateRegister > 0 && <BrigadeSelector
+            stateRegister={stateRegister}
+            setValue={setValue}
+            handlerSubmit={handleSubmit(onSubmit)}
+            handlerNextPage={handlerNextPage}
+        />}
 
-      {typePage != "registration" &&
-        <ItemButton
-          title="Log in"
-          handleSubmit={handleSubmit(onSubmit)} />}
-    </View>
+        <ErrorField error={error?.response?.data.message} />
+        </View>
+        {typePage == "registration" && stateRegister == 0 &&
+            <ItemButton
+                title="next"
+                handleSubmit={handleSubmit(handlerNextPage)}
+            />
+        }
+        {typePage == "registration" && stateRegister > 0 &&
+            <View style={styles.buttonsContainer}>
+              <ItemButton
+                  title="back"
+                  handleSubmit={handlerPreviousPage}
+                  style={styles.backButton}
+              />
+            </View>
+        }
+
+        {typePage != "registration" &&
+            <ItemButton
+                title="Log in"
+                handleSubmit={handleSubmit(onSubmit)} />}
+      </View>
 
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  content: {
+
+  },
+  buttonsContainer: {
+    marginTop: 0,
+
+  },
+  backButton: {
+
+  },
+});
+
+
 
 
 

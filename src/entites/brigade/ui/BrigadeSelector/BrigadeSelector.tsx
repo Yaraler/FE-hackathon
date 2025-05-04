@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Text, View,StyleSheet } from "react-native";
 import { useGetBrigadesQuery } from "../../api/useQuery"
 import { CardBrigade } from "../CardBrigade/CardBrigade";
 import { IBrigade } from "../../type/IBirgade";
@@ -27,20 +27,64 @@ export const BrigadeSelector: React.FC<BrigadeSelectorProps> = ({ handlerSubmit,
     handlerNextPage()
   }
   return (
-    <View>
-      {stateRegister == 1 &&
-        data?.map((elem: IBrigade) => (
-          <CardBrigade brigade={elem} key={elem._id} handler={() => handlerBrigadeInfo(elem)} />
-        ))
-      }
-      {stateRegister == 2 && brigade ? (
-        <BrigadeChooseInfo
-          handlerSubmit={handlerChooseSubmit}
-          brigade={brigade}
-        />
-      ) : null}
+      <View style={styles.grid}>
+        {/* Обертка для первых двух карточек */}
+        {stateRegister == 1 && (
+            <Text style={styles.title}>Choose your team</Text>
+        )}
 
+        <View style={styles.row}>
+          {stateRegister == 1 && data?.slice(0, 2).map((elem: IBrigade) => (
+              <CardBrigade
+                  brigade={elem}
+                  key={elem._id}
+                  handler={() => handlerBrigadeInfo(elem)}
+              />
+          ))}
+        </View>
 
-    </View>
+        {/* Третья карточка (если есть) */}
+        {stateRegister == 1 && data?.length > 2 && (
+            <View style={styles.centerCard}>
+              <CardBrigade
+                  brigade={data[2]}
+                  key={data[2]._id}
+                  handler={() => handlerBrigadeInfo(data[2])}
+              />
+            </View>
+        )}
+
+        {/* Блок BrigadeChooseInfo (оставляем как было) */}
+        {stateRegister == 2 && brigade && (
+            <BrigadeChooseInfo
+                handlerSubmit={handlerChooseSubmit}
+                brigade={brigade}
+            />
+        )}
+      </View>
   )
 }
+
+const styles = StyleSheet.create({
+
+  title:{
+    color:'white',
+    alignSelf:'center',
+    fontSize:32,
+    fontWeight:'bold',
+    paddingBottom:70,
+  },
+  grid: {
+    flex: 1,
+    padding: 16,
+    paddingTop: 100,
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between', // Две карточки по краям
+    marginBottom: 20,
+  },
+  centerCard: {
+    alignSelf: 'center', // Центрируем третью карточку
+  }
+})
