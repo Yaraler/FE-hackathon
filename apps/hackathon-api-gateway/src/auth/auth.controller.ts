@@ -4,6 +4,7 @@ import { RegistrationDto } from '@libs/contracts/users/registration.dto';
 import { LocalAuthGuard } from '@libs/guards/src';
 import { Request as ExpressRequest } from 'express';
 import { User } from 'apps/users/src/user/entity/user.entity';
+import { RefreshTokenDto } from '@libs/contracts/users/refresh-token.dto';
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) { }
@@ -17,4 +18,9 @@ export class AuthController {
   async login(@Request() req: ExpressRequest & { user: User }) {
     return await this.authService.login(req.user)
   }
+  @Post("refresh")
+  async refresh(@Body() data: RefreshTokenDto) {
+    return await this.authService.refresh(data)
+  }
+
 }

@@ -5,7 +5,7 @@ import { RequirementsBrigadeModule } from '../requirements_brigade/requirements_
 import { BrigadeController } from './brigade.controller';
 import { BrigadeService } from './brigade.service';
 import { requirementsBrigadeProviders } from '../requirements_brigade/provider/requirements-brigade';
-import { brigadeProviders } from './provides/brigade';
+import { brigadeProviders } from './provider/brigade';
 import { AwsService } from 'shared/lib/aws/aws.service';
 import { AwsModule } from 'shared/lib/aws/aws.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';

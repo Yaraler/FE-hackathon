@@ -16,18 +16,12 @@ export class RequirementsBrigadeService {
     @Inject('BRIGADE_REPOSITORY')
     private brigadeRepository: Repository<Brigade>,
   ) { }
-  async createRequirementsBrigade(data: CreateRequirementsBrigade, id: string) {
+  async createRequirementsBrigade(data: CreateRequirementsBrigade) {
     try {
-      const brigade = await this.brigadeService.findBrigadeById(id)
-      if (!brigade) {
-        throw new BadRequestException('Brigade with the specified ID was not found.');
-      }
       const requirements = this.requirementsBrigadeRestory.create({
         ...data,
-        brigadeId: brigade._id.toString()
       });
       const savedRequirements = await this.requirementsBrigadeRestory.save(requirements);
-      await this.brigadeService.addRequirementRelation(brigade._id.toString(), savedRequirements._id)
       return savedRequirements;
     } catch (error) {
       console.log(error)
@@ -42,6 +36,7 @@ export class RequirementsBrigadeService {
 
 
 
+
     } catch (error) {
       if (error instanceof BadRequestException) {
         throw error;
@@ -49,31 +44,19 @@ export class RequirementsBrigadeService {
       throw new InternalServerErrorException('An unexpected error occurred')
     }
   }
-  async createOneRequirementsBrigade(data: CreateRequirementsBrigadeDto) {
-    try {
-      const { id, ...requirements } = data
 
-      await this.createRequirementsBrigade(requirements, id);
 
-      return "a"
-    } catch (error) {
-      if (error instanceof BadRequestException) {
-        throw error;
-      }
-      throw new InternalServerErrorException('An unexpected error occurred')
-    }
-  }
-  async createManyRequirementsBrigade(data: CreateRequirementsBrigade[], id: string): Promise<RequirementsBrigade[]> {
+
+  async createManyRequirementsBrigade(data: CreateRequirementsBrigade[]): Promise<string[]> {
     try {
 
       const requirements = await Promise.all(
-        data.map(async (item) => await this.createRequirementsBrigade(item, id))
+        data.map(async (item) => await this.createRequirementsBrigade(item))
       );
-      const brigade = await this.brigadeService.findBrigadeById(id)
-      if (!brigade) {
-        throw new BadRequestException('Brigade with the specified ID was not found.');
-      }
-      return requirements
+      console.log(requirements)
+      const requirementsIds = requirements.map((elem) => elem._id.toString())
+      console.log(requirementsIds)
+      return requirementsIds
     } catch (error) {
       if (error instanceof BadRequestException) {
         throw error;

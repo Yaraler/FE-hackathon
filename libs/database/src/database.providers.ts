@@ -4,6 +4,7 @@ import { User } from 'apps/users/src/user/entity/user.entity';
 import configuration from './config/configuration';
 import { Brigade } from 'apps/brigade/src/brigade/entity/brigade.entity';
 import { RequirementsBrigade } from 'apps/brigade/src/requirements_brigade/entity/requirements-brigade.entity';
+import { Exercises } from 'apps/workouts/src/exercises/entity/exercises';
 const config = configuration();
 export const databaseProviders = [
   {
@@ -13,7 +14,7 @@ export const databaseProviders = [
         type: 'mongodb',
         url: config.db_url,
         database: 'test',
-        entities: [User, Brigade, DailyWorkouts, RequirementsBrigade],
+        entities: [User, Brigade, DailyWorkouts, RequirementsBrigade, Exercises],
         synchronize: true,
       });
 

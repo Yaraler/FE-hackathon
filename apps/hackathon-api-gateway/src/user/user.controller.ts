@@ -7,11 +7,11 @@ import { Request as ExpressRequest } from 'express';
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) { }
-  @Get("findAll")
+  @Get(":id")
   findAll() {
     return "user"
   }
-  @Get("get")
+  @Get("")
   @UseGuards(JwtAuthGuard)
   async get(@Request() data: ExpressRequest & { user: GetUserDto }) {
     return this.userService.get(data.user)

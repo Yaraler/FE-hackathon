@@ -4,7 +4,7 @@ import { DatabaseModule } from '@libs/database/src';
 import { BrigadeModule } from '../brigade/brigade.module';
 import { RequirementsBrigadeService } from './requirements_bridage.service';
 import { RequirementsBrigadeController } from './requirements_bridage.controller';
-import { brigadeProviders } from '../brigade/provides/brigade';
+import { brigadeProviders } from '../brigade/provider/brigade';
 @Module({
   imports: [DatabaseModule,
     forwardRef(() => BrigadeModule)

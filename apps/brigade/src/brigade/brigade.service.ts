@@ -6,12 +6,13 @@ import { Brigade } from './entity/brigade.entity';
 import { CreateBrigadeFileDto } from '@libs/contracts/bridage/createBridage.dto';
 import { AwsService } from 'shared/lib/aws/aws.service';
 import { RequirementsBrigade } from '../requirements_brigade/entity/requirements-brigade.entity';
-import { error } from 'console';
-import { IBrigadeResponse } from '@libs/contracts/bridage/responseBrigade';
 
 @Injectable()
 export class BrigadeService {
   constructor(
+    @Inject('REQUIREMENT_BRIGADE_REPOSITORY')
+    private requirementsBrigadeRestory: Repository<RequirementsBrigade>,
+
     @Inject(forwardRef(() => RequirementsBrigadeService))
     private readonly requirementsBrigadeService: RequirementsBrigadeService,
     @Inject('BRIGADE_REPOSITORY')
@@ -20,25 +21,27 @@ export class BrigadeService {
   ) { }
   async createBrigade(data: CreateBrigadeFileDto) {
     try {
-      const { requirementsBrigade, file, ...dataBrigade } = data
+      const { requirementsBrigade, shortName, file, ...dataBrigade } = data
       let requirements: RequirementsBrigade[] = []
       let imgURL: string | undefined
       if (data.file) {
         imgURL = await this.awsService.createPhoto(file)
       }
-      console.log(imgURL)
       const brigade = this.brigadeRepository.create({
         ...dataBrigade,
         image: imgURL,
+        shortName: shortName,
         requirementsBrigadeIds: []
       })
-      const saveBrigade = await this.brigadeRepository.save(brigade)
       if (requirementsBrigade) {
-        requirements = await this.requirementsBrigadeService.createManyRequirementsBrigade(requirementsBrigade, saveBrigade._id.toString())
+        brigade.requirementsBrigadeIds = await this.requirementsBrigadeService.createManyRequirementsBrigade(requirementsBrigade)
+
       }
-      const udpateBrigade = await this.findBrigadeById(saveBrigade._id.toString())
+      console.log("work")
+      const saveBrigade = await this.brigadeRepository.save(brigade)
+
       return {
-        udpateBrigade,
+        saveBrigade,
         requirements
       }
     } catch (error) {
@@ -67,16 +70,27 @@ export class BrigadeService {
   }
   async getBrigade() {
     try {
-      return this.brigadeRepository.aggregate([
-        {
-          $lookup: {
-            from: "requirements-brigade",
-            localField: "requirementsBrigadeIds",
-            foreignField: "_id",
-            as: "requirements"
-          }
-        }
-      ]).toArray();
+      const brigades = await this.brigadeRepository.find();
+
+      const brigadesWithRequirements = await Promise.all(
+        brigades.map(async (brigade) => {
+          const requirementIds = brigade.requirementsBrigadeIds.map(id => new ObjectId(id))
+          const requirements = await this.requirementsBrigadeRestory.find({
+            where: {
+              _id: {
+                $in: requirementIds
+              } as any
+            }
+          });
+
+          return {
+            ...brigade,
+            requirements,
+          };
+        })
+      );
+
+      return brigadesWithRequirements;
     } catch (error) {
       if (error instanceof BadRequestException) {
         throw error;

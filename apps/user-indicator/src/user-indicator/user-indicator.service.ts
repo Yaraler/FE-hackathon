@@ -13,18 +13,15 @@ export class UserIndicatorsService {
   ) { }
   async createCheckingIndicators(idUser: string) {
     try {
-      console.log("worker")
 
       const user = await this.userService.findById(idUser)
       const brigade = await this.brigadeService.getOneBrigade(user.brigadeId)
-      console.log("afa")
-      const res = await this.aiRouterService.createCheckingIndicators(brigade.requirements)
 
 
-      return res
     } catch (error) {
       throw error;
     }
   }
+
 
 }

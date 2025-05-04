@@ -3,6 +3,4 @@ import { CreateRequirementsBrigade } from "./createRequirementBridage";
 
 
 export class CreateRequirementsBrigadeDto extends CreateRequirementsBrigade {
-  @IsString()
-  id: string
 }

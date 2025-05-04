@@ -12,8 +12,5 @@ export class RequirementsBrigade {
   minimum?: number;
   @Column({ nullable: true })
   maximum?: number;
-  @ManyToOne(() => Brigade)
-  @JoinColumn({ name: 'brigadeId' })
-  brigadeId: string;
 }
 

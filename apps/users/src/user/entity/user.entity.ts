@@ -11,11 +11,17 @@ export class User {
   @Column()
   name: string
   @Column()
+  icon: string
+  @Column()
   password: string
   @Column()
-  brigadeId: string
-  @OneToMany(() => DailyWorkouts, workout => workout._id)
-  dailyWorkout: DailyWorkouts[];
+  brigadeId: ObjectId
+  @Column()
+  DailyWorkoutsIds?: ObjectId[];
+  @Column()
+  FirstWorkoutICheckndicatorId?: ObjectId //  DailyWorkoutsIds
+  @Column({ default: false })
+  state: boolean
   @Column()
   refreshToken: string;
 }

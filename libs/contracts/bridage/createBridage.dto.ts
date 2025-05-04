@@ -10,6 +10,8 @@ export class CreateBrigadeDto {
   @IsString()
   name: string
   @IsString()
+  shortName: string
+  @IsString()
   description: string
   @IsArray()
   @ValidateNested({ each: true })

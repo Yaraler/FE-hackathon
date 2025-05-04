@@ -1,21 +1,19 @@
 import { User } from "apps/users/src/user/entity/user.entity";
-import { Column, Entity, ObjectIdColumn, OneToMany, } from "typeorm";
 import { ObjectId } from "mongodb";
+import { Column, Entity, JoinColumn, ManyToOne, ObjectIdColumn } from "typeorm";
 
-
-
-@Entity("brigade")
-export class Brigade {
+@Entity("requirements-brigade")
+export class UserIndicator {
   @ObjectIdColumn()
   _id: ObjectId;
   @Column()
   name: string
   @Column()
   description: string
+
+
+
   @Column()
-  image?: string
-  @Column()
-  shortName?: string
-  @Column()
-  requirementsBrigadeIds: string[];
+  userId: ObjectId;
 }
+

@@ -6,6 +6,7 @@ import { RegistrationDto } from '@libs/contracts/users/registration.dto';
 import { LoginDto } from '@libs/contracts/users/login.dto';
 import { IUser } from '@libs/contracts/type/user';
 import { User } from '../user/entity/user.entity';
+import { RefreshTokenDto } from '@libs/contracts/users/refresh-token.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -22,4 +23,9 @@ export class AuthController {
   async login(data: User) {
     return await this.authService.login(data)
   }
+  @MessagePattern("auth.refresh")
+  async refresh(data: RefreshTokenDto) {
+    return await this.authService.refresh(data);
+  }
+
 }

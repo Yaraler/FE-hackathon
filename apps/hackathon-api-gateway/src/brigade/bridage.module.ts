@@ -5,7 +5,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { DatabaseModule } from '@libs/database/src';
 import { BrigadeController } from './bridage.controller';
 import { BrigadeService } from './bridage.service';
-import { brigadeProviders } from 'apps/brigade/src/brigade/provides/brigade';
+import { brigadeProviders } from 'apps/brigade/src/brigade/provider/brigade';
 import { requirementsBrigadeProviders } from 'apps/brigade/src/requirements_brigade/provider/requirements-brigade';
 import { AwsService } from 'shared/lib/aws/aws.service';
 import { ConfigModule } from '@nestjs/config';

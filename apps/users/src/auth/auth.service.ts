@@ -10,6 +10,8 @@ import { jwtConstants } from '@libs/constants';
 import { LoginDto } from '@libs/contracts/users/login.dto';
 import { MyLoggerService } from '@app/my-logger';
 import { IUser } from '@libs/contracts/type/user';
+import { ObjectId } from 'mongodb';
+import { RefreshTokenDto } from '@libs/contracts/users/refresh-token.dto';
 
 @Injectable()
 export class AuthService {
@@ -48,8 +50,8 @@ export class AuthService {
         name: name,
         email: email,
         password: hashedPassword,
-        brigadeId: brigadId,
-        dailyWorkout: [],
+        brigadeId: new ObjectId(brigadId),
+        DailyWorkoutsIds: []
       })
       const user = await this.userRepository.save(newUser);
       return this.create_token(user)
@@ -72,7 +74,7 @@ export class AuthService {
 
   }
 
-  async refresh(data) {
+  async refresh(data: RefreshTokenDto) {
     try {
       const { refreshToken } = data;
 
