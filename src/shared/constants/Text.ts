@@ -1,0 +1,5 @@
+
+
+export const TextFontFamily = {
+  mainFont: ""
+}

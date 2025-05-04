@@ -1,5 +1,5 @@
 
 
 export interface UserNameProps {
-  name: string
+  name?: string
 }
