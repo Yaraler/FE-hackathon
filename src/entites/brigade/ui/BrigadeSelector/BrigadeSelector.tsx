@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import { BrigadeSelectorProps } from "./type";
 import { BrigadeChooseInfo } from "../BrigadeChooseInfo/BrigadeChooseInfo";
 import { ITypePage } from "@/shared/type/ITypePage/ITypePage";
+import { BrigadeSelectorCard } from "../BrigadeSelectorCard/BrigadeSelectorCard";
 
 
 export const BrigadeSelector: React.FC<BrigadeSelectorProps> = ({ handlerSubmit, setValue, stateRegister, handlerNextPage }) => {
@@ -29,9 +30,9 @@ export const BrigadeSelector: React.FC<BrigadeSelectorProps> = ({ handlerSubmit,
   return (
     <View style={styles.container}>
       {stateRegister == 1 &&
-        data?.map((elem: IBrigade) => (
-          <CardBrigade brigade={elem} key={elem._id} handler={() => handlerBrigadeInfo(elem)} />
-        ))
+        <BrigadeSelectorCard brigades={data} handlerBrigadeInfo={handlerBrigadeInfo} />
+
+
       }
       {stateRegister == 2 && brigade ? (
         <BrigadeChooseInfo

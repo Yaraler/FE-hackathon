@@ -15,6 +15,8 @@ export const InputController: React.FC<InputControllerProps> = ({ errors, contro
             field={field}
             placeholder={input.placeholder}
             type={input.type}
+            secureTextEntry={input.name === 'password'}
+            showEyeIcon={input.name === 'password'}
           />
           <ErrorField error={errors[input.name]?.message} />
 

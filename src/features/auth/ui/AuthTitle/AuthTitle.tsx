@@ -11,11 +11,15 @@ export const AuthTitle: React.FC<AuthTitleProps> = ({ text }) => {
 }
 
 const styles = StyleSheet.create({
-  subtitle: {
-    fontSize: 24,
-    fontWeight: 700,
-    paddingBottom: 140,
-    textAlign: 'center',
-    paddingTop: 52,
-  },
+
+    subtitle: {
+      color:'white',
+      fontSize: 24,
+      fontWeight: 700,
+      paddingBottom:265,
+      textAlign: 'center',
+      paddingTop:52,
+
+    },
+
 })

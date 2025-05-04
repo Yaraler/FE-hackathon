@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { AuthForm, AuthLink } from "@/features/auth"
 import { AuthTitle } from "@/features/auth/ui/AuthTitle/AuthTitle"
 import { AuthProps } from "@/shared/type/AuthProps/type"
-import { View, Text, StyleSheet } from "react-native"
+import { View, Text, StyleSheet, ImageBackground, } from "react-native"
+
 
 
 function AuthText(props: { text: string }) {
-  return <Text style={styles.subtitle}>{props.text}</Text>;
+  return <Text >{props.text}</Text>;
 }
 
 export const Auth: React.FC<AuthProps> = ({ typePage }) => {
@@ -14,28 +15,24 @@ export const Auth: React.FC<AuthProps> = ({ typePage }) => {
 
 
   return (
-    <View style={styles.back}>
+
+
+    <View style={styles.container}>
       {!stateRegister && <AuthTitle text={typePage} />}
       <AuthForm typePage={typePage} stateRegister={stateRegister} setStateRegister={setStateRegister} />
       {!stateRegister && <AuthLink typePage={typePage} />}
-
-
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
-  subtitle: {
-    fontSize: 32,
-    fontWeight: 700,
-    paddingLeft: 41,
-    marginBottom: 26,
-
-
-  },
   back: {
-    backgroundColor: "rgb(216, 216, 216)",
+    flex: 1,
+    width: 412,
     height: 917,
+  },
+  container: {
+    flex: 1,
   }
 })
 
