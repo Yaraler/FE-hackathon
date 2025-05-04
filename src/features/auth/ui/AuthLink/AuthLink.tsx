@@ -16,7 +16,7 @@ export const AuthLink: React.FC<AuthProps> = ({ typePage }) => {
   return (
     <Pressable style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 30, }} onPress={handlePress}>
 
-      <Text>Already have an account?
+      <Text style={styles.text}>Already have an account? {" "}
 
         <Text style={[
           styles.link,
@@ -31,17 +31,14 @@ export const AuthLink: React.FC<AuthProps> = ({ typePage }) => {
 const styles = StyleSheet.create({
   link: {
     textDecorationLine: 'underline',
+    color:"white",
     fontWeight: '500',
     paddingTop: 20,
     textAlign: 'center',
     fontSize: 16,
 
   },
-  register: {
-
-  },
-  login: {
-
-
+  text:{
+    color:"white",
   }
 });

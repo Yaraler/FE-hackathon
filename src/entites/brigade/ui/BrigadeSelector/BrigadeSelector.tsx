@@ -28,27 +28,44 @@ export const BrigadeSelector: React.FC<BrigadeSelectorProps> = ({ handlerSubmit,
     handlerNextPage()
   }
   return (
-    <View style={styles.container}>
-      {stateRegister == 1 &&
+
+      <View style={styles.grid}>
+    
+        {stateRegister == 1 && (
+            <Text style={styles.title}>Choose your team</Text>
+        )}
+ {stateRegister == 1 &&
         <BrigadeSelectorCard brigades={data} handlerBrigadeInfo={handlerBrigadeInfo} />
-
-
       }
-      {stateRegister == 2 && brigade ? (
-        <BrigadeChooseInfo
-          handlerSubmit={handlerChooseSubmit}
-          brigade={brigade}
-        />
-      ) : null}
 
-
-    </View>
+        {stateRegister == 2 && brigade && (
+            <BrigadeChooseInfo
+                handlerSubmit={handlerChooseSubmit}
+                brigade={brigade}
+            />
+        )}
+      </View>
   )
 }
 
 const styles = StyleSheet.create({
-
-  container: {
-    height: 400
+  title:{
+    color:'white',
+    alignSelf:'center',
+    fontSize:32,
+    fontWeight:'bold',
+    paddingBottom:70,
+  },
+  grid: {
+    flex: 1,
+    padding: 16,
+    paddingTop: 100,
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between', 
+    marginBottom: 20,
+  },
+  centerCard: {
   }
 })

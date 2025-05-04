@@ -16,7 +16,7 @@ export const BrigadeChooseInfo: React.FC<BrigadeChooseInfoProps> = ({ brigade, h
 
       <Text>{brigade.name}</Text>
 
-      <Text>{brigade.description}    </Text>
+      <Text>{brigade.description} </Text>
       <BrigadeRequirements requirements={brigade.requirements} />
       <ItemButton
         title="Log in"
@@ -26,3 +26,4 @@ export const BrigadeChooseInfo: React.FC<BrigadeChooseInfoProps> = ({ brigade, h
     </View >
   )
 }
+//инфо про карточку
