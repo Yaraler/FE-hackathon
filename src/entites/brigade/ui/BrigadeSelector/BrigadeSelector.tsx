@@ -1,4 +1,4 @@
-import { Text, View,StyleSheet } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { useGetBrigadesQuery } from "../../api/useQuery"
 import { CardBrigade } from "../CardBrigade/CardBrigade";
 import { IBrigade } from "../../type/IBirgade";
@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import { BrigadeSelectorProps } from "./type";
 import { BrigadeChooseInfo } from "../BrigadeChooseInfo/BrigadeChooseInfo";
 import { ITypePage } from "@/shared/type/ITypePage/ITypePage";
+import { BrigadeSelectorCard } from "../BrigadeSelectorCard/BrigadeSelectorCard";
 
 
 export const BrigadeSelector: React.FC<BrigadeSelectorProps> = ({ handlerSubmit, setValue, stateRegister, handlerNextPage }) => {
@@ -27,34 +28,16 @@ export const BrigadeSelector: React.FC<BrigadeSelectorProps> = ({ handlerSubmit,
     handlerNextPage()
   }
   return (
+
       <View style={styles.grid}>
-        {/* Обертка для первых двух карточек */}
+    
         {stateRegister == 1 && (
             <Text style={styles.title}>Choose your team</Text>
         )}
+ {stateRegister == 1 &&
+        <BrigadeSelectorCard brigades={data} handlerBrigadeInfo={handlerBrigadeInfo} />
+      }
 
-        <View style={styles.row}>
-          {stateRegister == 1 && data?.slice(0, 2).map((elem: IBrigade) => (
-              <CardBrigade
-                  brigade={elem}
-                  key={elem._id}
-                  handler={() => handlerBrigadeInfo(elem)}
-              />
-          ))}
-        </View>
-
-        {/* Третья карточка (если есть) */}
-        {stateRegister == 1 && data?.length > 2 && (
-            <View style={styles.centerCard}>
-              <CardBrigade
-                  brigade={data[2]}
-                  key={data[2]._id}
-                  handler={() => handlerBrigadeInfo(data[2])}
-              />
-            </View>
-        )}
-
-        {/* Блок BrigadeChooseInfo (оставляем как было) */}
         {stateRegister == 2 && brigade && (
             <BrigadeChooseInfo
                 handlerSubmit={handlerChooseSubmit}
@@ -66,7 +49,6 @@ export const BrigadeSelector: React.FC<BrigadeSelectorProps> = ({ handlerSubmit,
 }
 
 const styles = StyleSheet.create({
-
   title:{
     color:'white',
     alignSelf:'center',
@@ -81,10 +63,9 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-    justifyContent: 'space-between', // Две карточки по краям
+    justifyContent: 'space-between', 
     marginBottom: 20,
   },
   centerCard: {
-    alignSelf: 'center', // Центрируем третью карточку
   }
 })

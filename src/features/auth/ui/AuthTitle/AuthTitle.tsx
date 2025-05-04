@@ -5,12 +5,13 @@ import { StyleSheet } from 'react-native';
 export const AuthTitle: React.FC<AuthTitleProps> = ({ text }) => {
   return (
     <Title style={styles.subtitle}>
-   DO IT
+      DO IT
     </Title>
   )
 }
 
 const styles = StyleSheet.create({
+
     subtitle: {
       color:'white',
       fontSize: 24,
@@ -20,4 +21,5 @@ const styles = StyleSheet.create({
       paddingTop:52,
 
     },
+
 })

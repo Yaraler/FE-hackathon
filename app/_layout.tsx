@@ -1,12 +1,13 @@
 import { useFonts } from 'expo-font';
-import { Slot } from 'expo-router';
-import { SafeAreaView, } from 'react-native';
+import { Slot, Stack } from 'expo-router';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
 import { QueryClient } from '@tanstack/react-query';
 import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { PaperProvider } from 'react-native-paper';
-
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { Platform, StatusBar } from 'react-native';
+import { FooterBar } from '@/widgets/FooterBar/ui/FooterBar';
 export default function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
@@ -28,17 +29,20 @@ export default function RootLayout() {
     storage: AsyncStorage
   })
   return (
-    <PersistQueryClientProvider
-      client={queryClient}
-      persistOptions={{ persister }}
-    >
-      <SafeAreaView >
+    <SafeAreaProvider>
+
+      <PersistQueryClientProvider
+        client={queryClient}
+        persistOptions={{ persister }}
+      >
         <PaperProvider>
+
           <Slot />
         </PaperProvider>
-      </SafeAreaView >
 
-    </PersistQueryClientProvider>
+      </PersistQueryClientProvider>
+    </SafeAreaProvider>
+
   )
 }
 

@@ -1,10 +1,15 @@
-import { Image, View ,Text,StyleSheet} from 'react-native';
+
+
+import { Main } from '@/widgets/Main/ui/Main';
 
 export default function HomeScreen() {
   return (
-    <View style={styles.container}>
-<Text style={styles.title}>Choose your team</Text>
-    </View>
+
+
+
+    <Main />
+
+
   );
 }
 
@@ -22,5 +27,6 @@ backgroundColor:'#16120F',
         color:'#fff',
     }
 })
+
 
 
