@@ -1,7 +1,7 @@
 
 
 export interface WorkoutsTitleProps {
-  text: strin
+  text: string
 
 
 }

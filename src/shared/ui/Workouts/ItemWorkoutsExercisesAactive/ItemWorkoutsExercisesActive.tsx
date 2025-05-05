@@ -5,24 +5,24 @@ import { Image } from "react-native"
 import { vw } from "react-native-css-vh-vw"
 import { SwitcherExercisesPanel } from "../SwitcherExerecisesPanel/SwitcherExercisesPanel"
 import { ItemButton } from "../../ItemButton/ItemButton"
+import { ExercisesCardActive } from "../ExercisesCardActive/ExercisesCardActive"
 
-export const ItemWorkoutsExercisesActive: React.FC<ItemWorkoutsExercisesActiveProps> = ({ exercise, handlerAdd, handlerMinus, }) => {
+export const ItemWorkoutsExercisesActive: React.FC<ItemWorkoutsExercisesActiveProps> = ({ exercise, handlerAdd, handlerMinus, handlerEnd, handlerPrevious, handlerNext }) => {
   return (
     <View style={styles.body}>
       <View style={styles.container}>
-        <Image
-          style={styles.img}
-          source={{
-            uri: 'https://static.gym-training.com/upload/image/original/d3/b2/d3b2a70a0236b2d943461c4226f2e428.jpeg?d3e5d07b3c316c950acb9a1cbd427eda',
-          }}
-        />
-        <Text style={styles.text}>{exercise.name}</Text>
-        <CountButtom handlerAdd={handlerAdd} handlerMinus={handlerMinus} count={exercise?.userCount} />
-        <ItemButton title="Submit result" handleSubmit={() => { }} />
-
+        {!exercise.state ?
+          <ExercisesCardActive exercise={exercise}
+            handlerAdd={handlerAdd}
+            handlerMinus={handlerMinus}
+            handlerEnd={handlerEnd}
+          />
+          :
+          null
+        }
         <SwitcherExercisesPanel
-          handlerNext={() => { }}
-          handlerPrevious={() => { }}
+          handlerNext={handlerNext}
+          handlerPrevious={handlerPrevious}
         />
 
       </View>
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: "white",
     marginTop: 20,
-    width: "80%",
+    width: "90%",
     height: "auto",
     overflow: 'hidden',
     justifyContent: "center",

@@ -11,11 +11,10 @@ export const useEndExercise = () => {
 
   const endExercise = async (exercise: IExercise) => {
 
+    console.log("Start")
     const res = await endExerciseMutation.mutateAsync(exercise)
-
-    if (res) {
-      queryClient.invalidateQueries({ queryKey: ["user"] });
-    }
+    console.log(res)
+    queryClient.invalidateQueries({ queryKey: ["user", "first-workout"] });
 
   }
   return { ...endExerciseMutation, endExercise }

@@ -9,7 +9,9 @@ export const StartFirstWorkout: React.FC<StartFirstWorkoutProps> = ({ handlerSta
 
     <View style={styles.container}>
       <Text style={styles.text}>Get ready to check your current fitness level.{"/n"} Let's see where you stand!</Text>
-      {error}
+      <Text>{error}</Text>
+
+
       <ItemButton title="start" handleSubmit={handlerStart} />
 
     </View>

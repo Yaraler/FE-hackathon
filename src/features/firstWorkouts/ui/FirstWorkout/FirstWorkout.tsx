@@ -6,15 +6,21 @@ import { useGetFirstWorkouts } from "../../model/hook/useGetFirstWorkouts"
 import { WorkoutsTitle } from "@/shared/ui/Workouts/WorkoutsTitle/WorkoutsTitle"
 import { StyleSheet } from "react-native"
 import { vw } from "react-native-css-vh-vw"
-import { WorkoutsSubtitle } from "@/shared/ui/Workouts/WorkoutsSubtitle/WotkoutsSubtitle"
 import { WorkoutsExercisesActive } from "@/shared/ui/Workouts/WorkoutsExercisesActive/WorkoutsExercisesActive"
 import { StartFirstWorkout } from "../StartFirstWorkout/StartFirstWorkout"
+import { useEndExercise } from "../../model/hook/useEndExercise"
+import { IExercise } from "@/shared/type/Workouts/IExercise/IExercise"
+import { WorkoutsDate } from "@/shared/ui/Workouts/WorkoutsDate/WorkoutsDate"
 
 export const FirstWorkout = () => {
   const { createFirstWorkouts } = useCreateFirstWorkouts()
   const { user } = useUserStore()
   const { data, error } = useGetFirstWorkouts()
-  const handlerChange = () =>
+  const { endExercise } = useEndExercise()
+  const handlerChange = async (exercises: IExercise) => {
+    console.log(exercises)
+    await endExercise(exercises)
+  }
   return (
     <View style={style.container}>
       {!user?.FirstWorkoutICheckndicatorId &&
@@ -27,24 +33,31 @@ export const FirstWorkout = () => {
           text="Your first workout"
         />
       }
+      {
+        user?.FirstWorkoutICheckndicatorId &&
+        data &&
+        <WorkoutsDate
+          date={data.workouts.day} />
+      }
 
       {
         user?.FirstWorkoutICheckndicatorId &&
         data &&
         <WorkoutsExercisesActive
+          handler={handlerChange}
           exercises={data.exercises}
         />
       }
     </View>
   )
+}
+const style = StyleSheet.create({
+  container: {
+    paddingTop: 10,
+    width: vw(100),
+    height: "auto",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
   }
-  const style = StyleSheet.create({
-    container: {
-      paddingTop: 10,
-      width: vw(100),
-      height: "auto",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center"
-    }
-  })
+})

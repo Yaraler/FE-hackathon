@@ -17,7 +17,7 @@ export const SwitcherExercisesPanel: React.FC<SwitcherExercisesPanelProps> = ({ 
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={handlerPrevious}>
-        <Text style={styles.buttonText}> {'<'} Previous</Text>
+        <Text style={styles.buttonText}> {'<'} Back</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={handlerNext}>
         <Text style={styles.buttonText}>Next {'>'}</Text>
@@ -33,13 +33,16 @@ const styles = StyleSheet.create({
     width: "100%",
     display: "flex",
     alignItems: "center",
+    marginBottom: 20
   },
   container: {
+    marginBottom: 5,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-around",
+    alignItems: "center",
     width: "100%",
-    height: 20,
+    height: 30,
     backgroundColor: Colors.main,
     marginTop: 10
   },

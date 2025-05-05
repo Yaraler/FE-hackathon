@@ -26,8 +26,8 @@ export const useEndExerciseMutation = (): UseMutationResult<null, AxiosError<IEr
   const api = createApi();
   const queryClient = useQueryClient()
   return useMutation<null, AxiosError<IError>, IExercise>({
-    mutationFn: async ({ exercise: IExercise }) => {
-      const res = await api.post("/workouts/create-first-workout", { exercise });
+    mutationFn: async (exercise: IExercise) => {
+      const res = await api.post("/workouts/end-first-workout", { exercise });
       return res.data;
     },
     onSuccess: () => {
