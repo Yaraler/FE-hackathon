@@ -13,6 +13,7 @@ export const InputController: React.FC<InputControllerProps> = ({ errors, contro
         <>
           <Input
             field={field}
+            typePage="login"
             placeholder={input.placeholder}
             type={input.type}
             secureTextEntry={input.name === 'password'}

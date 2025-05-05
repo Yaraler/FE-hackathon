@@ -4,9 +4,7 @@ import { IloginBody, IRegistrationBody } from "@/shared/type/Auth";
 import { AxiosError } from "axios";
 import { IError } from "@/shared/type/Api/IError";
 import { AuthResponse } from "@/features/auth/api/type";
-import { WorkoutsResponse } from "./useQuery";
 import { createApi } from "@/shared/api/axios.create";
-
 
 
 

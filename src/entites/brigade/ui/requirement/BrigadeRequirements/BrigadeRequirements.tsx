@@ -9,7 +9,6 @@ export const BrigadeRequirements: React.FC<BrigadeRequirementsProps> = ({ requir
       {
         requirements.map((data: IRequirement) => <ItemBrigadeRequirement key={data._id} requirement={data} />)
       }
-
     </View>
   )
 }
