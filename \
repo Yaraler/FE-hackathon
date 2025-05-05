@@ -4,7 +4,6 @@ import { JwtAuthGuard } from '@libs/guards/src';
 import { GetUserDto } from '@libs/contracts/users/get-user.dto';
 import { Request as ExpressRequest } from 'express';
 import { IExercises } from '@libs/contracts/user-indicators/ICheckingIndicator';
-import { Exercises } from 'apps/workouts/src/exercises/entity/exercises';
 
 @Controller('workouts')
 export class WorkoutsController {
@@ -21,8 +20,7 @@ export class WorkoutsController {
   }
   @Post("end-first-workout")
   @UseGuards(JwtAuthGuard)
-  async endFirst(@Body() data: Exercises, @Request() user: ExpressRequest & { user: GetUserDto }) {
-    console.log("start")
+  async endFirst(@Body() data: IExercises, @Request() user: ExpressRequest & { user: GetUserDto }) {
     return this.workoutsService.endFirstWorkout(user.user.userId, data)
   }
 }

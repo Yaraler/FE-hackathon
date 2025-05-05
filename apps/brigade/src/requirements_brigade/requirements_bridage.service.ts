@@ -1,10 +1,11 @@
 import { BadRequestException, forwardRef, Inject, Injectable, InternalServerErrorException } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { RequirementsBrigade } from './entity/requirements-brigade.entity';
 import { BrigadeService } from '../brigade/brigade.service';
 import { Brigade } from '../brigade/entity/brigade.entity';
 import { CreateRequirementsBrigade } from '@libs/contracts/bridage/createRequirementBridage';
 import { CreateRequirementsBrigadeDto } from '@libs/contracts/bridage/createRequirementsBridage.dto';
+import { ObjectId } from 'mongodb';
 
 @Injectable()
 export class RequirementsBrigadeService {
@@ -31,12 +32,16 @@ export class RequirementsBrigadeService {
       throw 'An unexpected error occurred';
     }
   }
-  async getRequirementsByBrigade(brigadeId: string) {
+  async getRequirementsByBrigade(objectIdsReq: ObjectId[]) {
     try {
-
-
-
-
+      const requirements = await this.requirementsBrigadeRestory.find({
+        where: {
+          _id: {
+            $in: objectIdsReq,
+          }
+        }
+      })
+      return requirements
     } catch (error) {
       if (error instanceof BadRequestException) {
         throw error;

@@ -4,6 +4,7 @@ import { lastValueFrom } from 'rxjs';
 import { ConfigService } from '@nestjs/config';
 import { RequirementsBrigade } from 'apps/brigade/src/requirements_brigade/entity/requirements-brigade.entity';
 import { IExercises } from '@libs/contracts/user-indicators/ICheckingIndicator';
+import { Exercises } from 'apps/workouts/src/exercises/entity/exercises';
 
 
 @Injectable()
@@ -15,7 +16,7 @@ export class AiRouterService {
   ) {
     this.apiOpenRouterConfig = this.configService.get('open-router');
   }
-  private async request<T>(promt: string,): Promise<T[]> {
+  private async request<T>(promt: string,): Promise<T> {
     try {
       const res = await lastValueFrom(
         this.httpService.post('http://localhost:11434/api/generate',
@@ -38,7 +39,31 @@ export class AiRouterService {
       throw error;
     }
   }
+  async commentExercise(requirements: RequirementsBrigade, exercises: Exercises): Promise<{ comment: string }> {
+    try {
+      const prompt = `
+      Напиши короткий вдячний коментар для вправи "${exercises.name}", яку користувач виконав ${exercises.count} разів, з урахуванням фізичних вимог:
 
+      ${requirements}
+
+      Коментар має бути у формі подяки (наприклад: "Дякуємо за ваші старання!") і містити натяк, що на основі цих даних буде сформовано індивідуальну програму тренувань.
+
+      Поверни лише об'єкт з полем comment:
+
+      {
+        "comment": "Коментар для користувача"
+      }
+
+      Не додавай жодних пояснень. Поверни лише JSON-об'єкт.
+    `;
+
+      const res = await this.request<{ comment: string }>(prompt)
+      return res
+    } catch (error) {
+      return { comment: "" }
+    }
+
+  }
   async createFirstWorkoutsCheckingIndicators(requirements: RequirementsBrigade): Promise<IExercises[]> {
     try {
       const promt = `
@@ -53,17 +78,18 @@ export class AiRouterService {
          
          Поверни лише JSON-масив у форматі:
          
-         [
-           {
-             "exercise": "Назва вправи",
-             "name": "Назва вправи для користувача (наприклад, скільки віджимань зможете зробити)",
-             "count": "середні показники"
-           }
-         ]
+        [
+  {
+    "exercise": "Назва вправи",
+    "name": "Назва вправи для користувача (наприклад, скільки віджимань зможете зробити?)",
+    "count": "null",
+    "description": "Опис: для чого, які м'язи задіяні і т.д."
+  }
+]
          
          Не додавай жодних пояснень. Поверни лише масив. Це буде використовуватись для створення персонального плану тренувань.
       `
-      const res = await this.request<IExercises>(promt)
+      const res = await this.request<IExercises[]>(promt)
       return res
     } catch (error) {
       throw error;

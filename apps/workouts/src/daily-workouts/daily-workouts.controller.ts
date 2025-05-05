@@ -1,6 +1,8 @@
 import { Controller } from '@nestjs/common';
 import { DailyWorkoutsService } from './daily-workouts.service';
 import { MessagePattern } from '@nestjs/microservices';
+import { IExercises } from '@libs/contracts/user-indicators/ICheckingIndicator';
+import { Exercises } from '../exercises/entity/exercises';
 
 @Controller('daily-workouts')
 export class DailyWorkoutsController {
@@ -14,5 +16,12 @@ export class DailyWorkoutsController {
     console.log("a")
     return await this.dailyWorkoutsService.getFirstWorkouts(idUser)
   }
+
+  @MessagePattern("workouts.end-first-workout")
+  async endFirstWorkouts(data: any) {
+    console.log(data)
+    return await this.dailyWorkoutsService.endFirstExercises(data.idUser, data.exercises)
+  }
+
 
 }

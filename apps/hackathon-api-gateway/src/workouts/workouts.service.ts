@@ -1,5 +1,7 @@
+import { IExercises } from '@libs/contracts/user-indicators/ICheckingIndicator';
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { Exercises } from 'apps/workouts/src/exercises/entity/exercises';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable()
@@ -20,6 +22,16 @@ export class WorkoutsService {
     } catch (error) {
       throw error;
     }
+  }
+
+  async endFirstWorkout(idUser: string, exercises: Exercises) {
+    try {
+      console.log(exercises)
+      return await firstValueFrom(this.wrkoutsClient.send("workouts.end-first-workout", { idUser, exercises }))
+    } catch (error) {
+      throw error;
+    }
+
   }
 
 

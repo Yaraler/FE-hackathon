@@ -79,7 +79,7 @@ export class BrigadeService {
             where: {
               _id: {
                 $in: requirementIds
-              } as any
+              }
             }
           });
 
@@ -101,23 +101,23 @@ export class BrigadeService {
   async getOneBrigade(brigadeId: string): Promise<any> {
     try {
       const brigadeRepository = this.brigadeRepository;
+      const brigade = await brigadeRepository.findOneBy({
+        _id: new ObjectId(brigadeId)
+      });
+      if (!brigade) {
+        return null;
+      }
 
-      return brigadeRepository.aggregate([
-        {
-          $match: {
-            _id: brigadeId
-          }
-        },
-        {
-          $lookup: {
-            from: "requirements-brigade",
-            localField: "requirementsBrigadeIds",
-            foreignField: "_id",
-            as: "requirements"
-          }
-        }
-      ])
+      if (!brigade.requirementsBrigadeIds?.length) {
+        return { ...brigade, requirements: [] };
+      }
 
+      const objectIdsReq = brigade.requirementsBrigadeIds.map(i => new ObjectId(i)) as ObjectId[]
+      const requirements = await this.requirementsBrigadeService.getRequirementsByBrigade(objectIdsReq)
+      return {
+        ...brigade,
+        requirements: requirements
+      };
     } catch (error) {
       throw error;
     }

@@ -10,6 +10,9 @@ import { create } from 'domain';
 import { User } from 'apps/users/src/user/entity/user.entity';
 import { ObjectId } from 'mongodb';
 import { ExercisesService } from '../exercises/exercises.service';
+import { Exercises } from '../exercises/entity/exercises';
+import { constants } from 'perf_hooks';
+import { RequirementsBrigade } from 'apps/brigade/src/requirements_brigade/entity/requirements-brigade.entity';
 
 @Injectable()
 export class DailyWorkoutsService {
@@ -20,7 +23,6 @@ export class DailyWorkoutsService {
     private readonly exercisesService: ExercisesService,
     @Inject('USER_REPOSITORY')
     private readonly userRepository: Repository<User>,
-
     @Inject('DAILY_WORKOUTS')
     private readonly dailyWorkoutsRepository: MongoRepository<DailyWorkouts>,
   ) { }
@@ -34,7 +36,7 @@ export class DailyWorkoutsService {
       const res = await this.aiRouterService.createFirstWorkoutsCheckingIndicators(brigade.requirements)
       const data: ICreateWorkouts = {
         name: "check your indicator",
-        description: "",
+        description: "A workout designed to help you assess your physical condition through a series of exercises that monitor strength, endurance, and flexibility. Ideal for tracking progress and identifying areas for improvement.",
         userId: idUser,
       }
       const exercisesId = await this.exercisesService.createExercises(res)
@@ -71,12 +73,35 @@ export class DailyWorkoutsService {
       if (!user.FirstWorkoutICheckndicatorId) {
         throw new InternalServerErrorException('Usere alerdy have firstWorkouts ');
       }
+
       return await this.getWorkoutsWithExercises(user.FirstWorkoutICheckndicatorId)
 
     } catch (error) {
       throw error;
     }
   }
+  async endFirstExercises(idUser: string, exercises: Exercises) {
+    try {
+      const user = await this.userService.findById(idUser)
+      const brigade = await this.brigadeService.getOneBrigade(user.brigadeId.toString())
+      const res = await this.aiRouterService.commentExercise(brigade.requirements, exercises)
+      const update = await this.exercisesService.endExercises(res.comment, exercises)
+      return update
+    } catch (error) {
+      throw error;
+    }
+
+  }
+  async checkExercise(idDaily: string) {
+    try {
+      const workouts = await this.getWorkoutsWithExercises(idDaily)
+
+    } catch (error) {
+      throw error;
+    }
+
+  }
+
   async getWorkoutsWithExercises(id: string) {
     try {
       const workouts = await this.dailyWorkoutsRepository.findOne({

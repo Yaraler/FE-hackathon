@@ -10,8 +10,19 @@ export class Exercises {
   @Column()
   name: string
   @Column()
-  count: string
+  count?: string | null
   @Column()
   userCount?: string
+  @Column()
+  comment?: string
+  @Column()
+  imgUrl?: string
+  @Column()
+  state: boolean
+  @Column()
+  description?: string
+  @Column()
+  videoLink?: string
+
 }
 
