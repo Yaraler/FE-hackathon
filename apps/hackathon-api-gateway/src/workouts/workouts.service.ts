@@ -9,13 +9,19 @@ export class WorkoutsService {
 
   async createFirstWorkout(idUser: string) {
     try {
-      console.log(idUser)
       return await firstValueFrom(this.wrkoutsClient.send("workouts.create-first-workouts", idUser))
-
-
     } catch (error) {
       throw error;
     }
-
   }
+  async getFirstWorkout(idUser: string) {
+    try {
+      return await firstValueFrom(this.wrkoutsClient.send("workouts.get-first-workouts", idUser))
+    } catch (error) {
+      throw error;
+    }
+  }
+
+
+
 }

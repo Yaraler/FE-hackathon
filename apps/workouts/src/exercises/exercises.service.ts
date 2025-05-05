@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { MongoRepository } from 'typeorm';
 import { Exercises } from './entity/exercises';
 import { IExercises } from '@libs/contracts/user-indicators/ICheckingIndicator';
+import { ObjectId } from 'mongodb';
 
 @Injectable()
 export class ExercisesService {
@@ -21,7 +22,25 @@ export class ExercisesService {
       throw error;
     }
   }
-  async createExercises(data: IExercises[],) {
+  async getExercises(id: string[]) {
+    try {
+      const objectIds = id.map(i => new ObjectId(i));
+      const exercises = await this.exercisesRepository.find({
+        where: {
+          _id: {
+            $in: objectIds
+          }
+        }
+      })
+      return exercises;
+
+    } catch (error) {
+      throw error;
+    }
+
+  }
+
+  async createExercises(data: IExercises[]) {
     try {
       const createdExercises = await Promise.all(
         data.map(async (item) =>

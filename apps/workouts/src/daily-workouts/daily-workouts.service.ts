@@ -28,7 +28,7 @@ export class DailyWorkoutsService {
     try {
       const user = await this.userService.findById(idUser)
       if (user.FirstWorkoutICheckndicatorId) {
-        throw new InternalServerErrorException('User alerdy have firstWorkouts ');
+        throw new InternalServerErrorException('User alerdi have firstWorkouts ');
       }
       const brigade = await this.brigadeService.getOneBrigade(user.brigadeId)
       const res = await this.aiRouterService.createFirstWorkoutsCheckingIndicators(brigade.requirements)
@@ -54,17 +54,47 @@ export class DailyWorkoutsService {
       const daily = this.dailyWorkoutsRepository.create({
         name: data.name,
         description: data.description,
-        userId: new ObjectId(data.userId),
+        userId: data.userId,
         state: false,
-        exercisesId: data.exercisesId,
+        exercisesId: data?.exercisesId?.map(id => id.toString()),
         day: new Date()
       })
-      return await this.dailyWorkoutsRepository.save(daily)
+      const res = await this.dailyWorkoutsRepository.save(daily)
+      return res
     } catch (error) {
       throw error;
     }
   }
+  async getFirstWorkouts(idUser: string) {
+    try {
+      const user = await this.userService.findById(idUser)
+      if (!user.FirstWorkoutICheckndicatorId) {
+        throw new InternalServerErrorException('Usere alerdy have firstWorkouts ');
+      }
+      return await this.getWorkoutsWithExercises(user.FirstWorkoutICheckndicatorId)
 
+    } catch (error) {
+      throw error;
+    }
+  }
+  async getWorkoutsWithExercises(id: string) {
+    try {
+      const workouts = await this.dailyWorkoutsRepository.findOne({
+        where: {
+          _id: new ObjectId(id)
+        }
+      });
+      if (!workouts?.exercisesId) return { exercises: null, workouts }
+      const exercises = await this.exercisesService.getExercises(workouts.exercisesId)
+
+
+
+      return { workouts, exercises }
+    } catch (error) {
+      throw error;
+    }
+
+  }
 
 }
 

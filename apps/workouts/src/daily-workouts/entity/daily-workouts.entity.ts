@@ -6,7 +6,7 @@ import { ObjectId } from "mongodb";
 @Entity()
 export class DailyWorkouts {
   @ObjectIdColumn()
-  _id: string;
+  _id: ObjectId;
   @Column()
   name: string
   @Column()
@@ -19,8 +19,8 @@ export class DailyWorkouts {
   userComment?: string
   @Column()
   commentToDay?: string
-  @Column(() => Exercises)
+  @Column()
   exercisesId?: string[]
-  @Column(() => User)
+  @Column()
   userId: ObjectId
 }
