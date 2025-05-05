@@ -1,7 +1,8 @@
 export interface IExercise {
   _id: string;
   exercise: string;
+  imgUrl?: string
   name: string;
-  count: string;
-  userCount: string | null;
+  count?: string | null;
+  userCount?: number | null;
 }

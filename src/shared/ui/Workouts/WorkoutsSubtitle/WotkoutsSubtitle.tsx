@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.main,
     height: "auto",
     width: vw(90),
-    padding: 20,
+    padding: 10,
     marginTop: 20,
     borderRadius: 20,
   },
@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
     fontFamily: TextFontFamily.mainFont
   },
   descrption: {
-    marginBottom: 10,
     fontSize: 16
   },
   textTitle: {

@@ -1,7 +1,7 @@
 
 
 export interface WorkoutsTitleProps {
-  name: string
-  date: string
-  description: string
+  text: strin
+
+
 }

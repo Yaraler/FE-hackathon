@@ -5,6 +5,7 @@ import { AxiosError } from "axios";
 import { IError } from "@/shared/type/Api/IError";
 import { AuthResponse } from "@/features/auth/api/type";
 import { createApi } from "@/shared/api/axios.create";
+import { IExercise } from "@/shared/type/Workouts/IExercise/IExercise";
 
 
 
@@ -18,6 +19,19 @@ export const useCreateFirstWorkoutsMutation = (): UseMutationResult<AuthResponse
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["user"] });
+    },
+  });
+};
+export const useEndExerciseMutation = (): UseMutationResult<null, AxiosError<IError>, IExercise> => {
+  const api = createApi();
+  const queryClient = useQueryClient()
+  return useMutation<null, AxiosError<IError>, IExercise>({
+    mutationFn: async ({ exercise: IExercise }) => {
+      const res = await api.post("/workouts/create-first-workout", { exercise });
+      return res.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user", "first-workout"] });
     },
   });
 };
