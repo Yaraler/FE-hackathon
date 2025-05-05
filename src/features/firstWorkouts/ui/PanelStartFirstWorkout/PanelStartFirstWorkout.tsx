@@ -14,8 +14,9 @@ export const PanelStartFirstWorkout = () => {
       <View>
         <Text style={styles.titleText}> Start your first workout
         </Text>
-        <Text>
-          For start your way to the solider. We need  check your physical ....
+        <Text style={styles.description}>
+          For start your way to the solider.{"\n"}
+          We need check your physical ...
         </Text>
         <ItemButton title="Start" handleSubmit={handlerWorkout} />
       </View>
@@ -30,14 +31,22 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.main,
     width: vw(90),
     borderRadius: 20,
+
     display: "flex",
-    gap: 20,
-    justifyContent: "center",
     alignItems: "center",
     marginTop: 20
   },
+  description: {
+    marginTop: 30,
+    fontSize: 18,
+    textAlign: "center",
+    fontWeight: "regular",
+    fontFamily: TextFontFamily.mainFont,
+    marginBottom: 22,
+  },
   titleText: {
-    fontSize: 28,
+    fontSize: 32,
+    marginTop: 50,
     textAlign: "center",
     fontWeight: "bold",
     fontFamily: TextFontFamily.mainFont

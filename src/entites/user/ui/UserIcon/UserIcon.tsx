@@ -1,7 +1,7 @@
 import { Image, StyleSheet } from 'react-native';
 import React from 'react';
 import { UserIconProps } from './type';
-import userImg from "../../../../../assets/images/userImg.png"
+import userImg from "../../../../../assets/images/MaleUser.png"
 export const UserIcon: React.FC<UserIconProps> = ({ icon }) => {
   return (
     <Image

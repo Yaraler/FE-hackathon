@@ -1,14 +1,24 @@
 import React from "react"
 import { WorkoutsTitleProps } from "./type"
-import { Text, View } from "react-native"
+import { StyleSheet, Text, View } from "react-native"
+import { Colors } from "@/shared/constants/Colors"
 
-export const WorkoutsTitle: React.FC<WorkoutsTitleProps> = ({ name, description }) => {
-  const today = new Date();
+export const WorkoutsTitle: React.FC<WorkoutsTitleProps> = ({ text }) => {
   return (
-    <View>
-      <Text>{today.getDate()}</Text>
-      <Text>{name}</Text>
-      <Text>{description}</Text>
-    </View>
+    <Text style={styles.container}>
+      {text}
+    </Text>
   )
 }
+const styles = StyleSheet.create({
+  container: {
+    width: "90%",
+    textAlign: "left",
+    fontSize: 32,
+    marginTop: 30,
+    fontWeight: "bold",
+
+    color: Colors.ornageText
+  }
+
+})

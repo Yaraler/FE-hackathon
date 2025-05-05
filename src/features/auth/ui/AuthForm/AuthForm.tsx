@@ -10,6 +10,7 @@ import { useAuth } from "../../model/hooks/useAuth"
 import { ErrorField } from "@/shared/ui/ErrorField/ErrorField"
 import { BrigadeSelector } from "@/entites/brigade/ui/BrigadeSelector/BrigadeSelector"
 import { AuthFormProps } from "./AuthFormProps"
+import React from "react"
 
 
 

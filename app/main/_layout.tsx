@@ -4,6 +4,7 @@ import { Slot } from "expo-router";
 import { Platform, SafeAreaView, StatusBar, StyleSheet, View } from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { Stack } from "expo-router";
+import { vh } from "react-native-css-vh-vw";
 
 export default function RootLayout() {
   const { data } = useGetUser()
@@ -15,23 +16,15 @@ export default function RootLayout() {
         backgroundColor="#939393"
         barStyle="light-content" />
       <SafeAreaView
-        style={{ flex: 1, paddingTop: Platform?.OS === 'android' ? StatusBar.currentHeight : 0, }}
+        style={[
+          styles.container,
+          {
+            flex: 1,
+            paddingTop: Platform?.OS === 'android' ? StatusBar.currentHeight : 0,
+          }
+        ]}
       >
-        <Stack
-          screenOptions={{
-            headerShown: false,
-            gestureEnabled: true,
-            gestureDirection: "horizontal",
-            headerStyle: {
-            },
-            animation: "slide_from_right",
-            statusBarTranslucent: true
-          }}
-        >
-          <Stack.Screen name="index" options={{ header: () => null }} />
-          <Stack.Screen name="workouts" options={{ headerShown: false }} />
-        </Stack>
-
+        <Slot />
 
 
         <FooterBar />
@@ -48,8 +41,9 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: "black"
   },
-  container: {
-    width: '100%',
 
+  container: {
+    display: "flex",
+    justifyContent: "space-between"
   }
 });
