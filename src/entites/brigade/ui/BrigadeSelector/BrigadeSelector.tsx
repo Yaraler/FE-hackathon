@@ -10,7 +10,7 @@ import { BrigadeSelectorCard } from "../BrigadeSelectorCard/BrigadeSelectorCard"
 
 
 export const BrigadeSelector: React.FC<BrigadeSelectorProps> = ({ handlerSubmit, setValue, stateRegister, handlerNextPage }) => {
-  const { data, isLoading, error } = useGetBrigadesQuery()
+  const {data, isLoading, error} = useGetBrigadesQuery()
   const [brigade, setBrigade] = useState<IBrigade | undefined>()
 
   const handlerChooseSubmit = async (id: string) => {
@@ -28,16 +28,34 @@ export const BrigadeSelector: React.FC<BrigadeSelectorProps> = ({ handlerSubmit,
     handlerNextPage()
   }
   return (
-
-      <View style={styles.grid}>
-    
+      <View style={styles.container}>
+        {/* Обертка для первых двух карточек */}
         {stateRegister == 1 && (
             <Text style={styles.title}>Choose your team</Text>
         )}
- {stateRegister == 1 &&
-        <BrigadeSelectorCard brigades={data} handlerBrigadeInfo={handlerBrigadeInfo} />
-      }
 
+        {stateRegister == 1 && (
+            <View style={styles.grid}>
+              {data?.map((brigade, index) => (
+                  <View
+                      key={brigade._id}
+                      style={[
+                        styles.cardContainer,
+                        index % 2 === 0 ? styles.leftCard : styles.rightCard
+                      ]}
+                  >
+                    <CardBrigade
+                        brigade={brigade}
+                        handler={() => handlerBrigadeInfo(brigade)}
+                    />
+                  </View>
+              ))}
+
+        )}
+            </View>
+        )}
+
+        {/* Блок BrigadeChooseInfo (оставляем как было) */}
         {stateRegister == 2 && brigade && (
             <BrigadeChooseInfo
                 handlerSubmit={handlerChooseSubmit}
@@ -45,27 +63,29 @@ export const BrigadeSelector: React.FC<BrigadeSelectorProps> = ({ handlerSubmit,
             />
         )}
       </View>
-  )
-}
+  )}
+
 
 const styles = StyleSheet.create({
-  title:{
-    color:'white',
-    alignSelf:'center',
-    fontSize:32,
-    fontWeight:'bold',
-    paddingBottom:70,
-  },
-  grid: {
+  container: {
     flex: 1,
     padding: 16,
-    paddingTop: 100,
   },
-  row: {
+  title: {
+    color: 'white',
+    paddingTop:100,
+    fontSize: 32,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 60,
+  },
+  grid: {
     flexDirection: 'row',
-    justifyContent: 'space-between', 
-    marginBottom: 20,
+    justifyContent: 'space-between',
+    marginBottom: 16,
   },
-  centerCard: {
-  }
-})
+  cardContainer: {
+    width: '48%',
+    aspectRatio: 1,
+  },
+});

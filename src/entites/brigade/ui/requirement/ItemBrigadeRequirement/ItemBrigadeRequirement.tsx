@@ -2,16 +2,16 @@ import React from "react"
 import { ItemBrigadeRequirementProps } from "./type"
 import { Text, View } from "react-native"
 
-export const ItemBrigadeRequirement: React.FC<ItemBrigadeRequirementProps> = ({ requirement }) => {
+
+
+
+
+export const ItemBrigadeRequirement: React.FC<ItemBrigadeRequirementProps> = ({requirement,textStyle}) => {
   return (
     <View>
-      <Text>{requirement.exercise}</Text>
-      <Text>
-        minimum:{requirement.minimum}
-      </Text>
-      <Text>
-        maximum:{requirement.maximum}
-      </Text>
+      <Text style={textStyle}>{requirement.exercise}:</Text>
+      <Text style={textStyle}>Норматив - {requirement.minimum}</Text>
+      <Text style={textStyle}>Елітний рівень - {requirement.maximum}</Text>
     </View>
   )
 }

@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
 
   },
   buttonsContainer: {
-    marginTop: 0,
+    marginTop: 30,
 
   },
   backButton: {
