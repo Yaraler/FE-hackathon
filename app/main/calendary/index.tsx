@@ -1,6 +1,8 @@
+import { Calendary } from "@/widgets/Calendary/Calendary";
+
 export default function HomeScreen() {
   return (
-    <Main />
+    <Calendary />
   );
 }
 

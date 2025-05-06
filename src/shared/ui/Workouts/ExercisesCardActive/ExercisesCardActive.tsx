@@ -11,7 +11,7 @@ export const ExercisesCardActive: React.FC<ExercisesCardActiveProps> = ({ exerci
       <Image
         style={styles.img}
         source={{
-          uri: 'https://static.gym-training.com/upload/image/original/d3/b2/d3b2a70a0236b2d943461c4226f2e428.jpeg?d3e5d07b3c316c950acb9a1cbd427eda',
+          uri: exercise.imgUrl ? exercise.imgUrl : 'https://static.gym-training.com/upload/image/original/d3/b2/d3b2a70a0236b2d943461c4226f2e428.jpeg?d3e5d07b3c316c950acb9a1cbd427eda',
         }}
       />
       <Text style={styles.text}>{exercise.name}</Text>

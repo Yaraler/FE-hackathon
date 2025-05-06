@@ -10,7 +10,7 @@ export const WorkoutsExercisesActive: React.FC<WorkoutsExercisesActiveProps> = (
   const { endExercise } = useEndExercise()
   const [userExercises, setUserExercises] = useState<IExercise[]>(exercises)
   const [currentExercises, setCurrentExercises] = useState<number>(0)
-
+  const [close, setClose] = useState(false)
   const handlerNext = () => {
     if (userExercises.length - 1 == currentExercises) return
     setCurrentExercises(currentExercises + 1)
@@ -21,6 +21,7 @@ export const WorkoutsExercisesActive: React.FC<WorkoutsExercisesActiveProps> = (
   }
 
   const handlerChange = async (_id: string) => {
+    setTimeout(() => setClose(true), 5000)
     const res = userExercises.find((element) => element._id == _id);
     if (!res) return
     await endExercise(res)

@@ -16,7 +16,7 @@ export const footerBarData: ItemFooterBarProps[] = [
     icon: CalendarImg,
     type: false,
     name: "Calendar",
-    link: '/main/calendar'
+    link: '/main/calendary'
   },
   {
     icon: WorkoutsImg,

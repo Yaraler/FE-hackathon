@@ -7,7 +7,7 @@ export const Workouts = () => {
 
   return (
     <View >
-      {!user?.state && <FirstWorkout />}
+      <FirstWorkout />
     </View>
   )
 }

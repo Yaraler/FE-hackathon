@@ -6,20 +6,24 @@ import { vw } from "react-native-css-vh-vw"
 import { SwitcherExercisesPanel } from "../SwitcherExerecisesPanel/SwitcherExercisesPanel"
 import { ItemButton } from "../../ItemButton/ItemButton"
 import { ExercisesCardActive } from "../ExercisesCardActive/ExercisesCardActive"
+import { ExercisesCardNoActive } from "../ExercisesCardNotActive/ExercisesCardNoActive"
 
-export const ItemWorkoutsExercisesActive: React.FC<ItemWorkoutsExercisesActiveProps> = ({ exercise, handlerAdd, handlerMinus, handlerEnd, handlerPrevious, handlerNext }) => {
+export const ItemWorkoutsExercisesActive: React.FC<ItemWorkoutsExercisesActiveProps> = ({ exercise, handlerAdd, handlerMinus, handlerEnd, handlerPrevious, handlerNext, close }) => {
   return (
     <View style={styles.body}>
       <View style={styles.container}>
         {!exercise.state ?
-          <ExercisesCardActive exercise={exercise}
-            handlerAdd={handlerAdd}
-            handlerMinus={handlerMinus}
-            handlerEnd={handlerEnd}
-          />
+
+          !close ?
+            <ExercisesCardActive exercise={exercise}
+              handlerAdd={handlerAdd}
+              handlerMinus={handlerMinus}
+              handlerEnd={handlerEnd}
+            /> : <ExercisesCardNoActive exercise={exercise} />
           :
-          null
+          <ExercisesCardNoActive exercise={exercise} />
         }
+
         <SwitcherExercisesPanel
           handlerNext={handlerNext}
           handlerPrevious={handlerPrevious}

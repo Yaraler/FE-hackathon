@@ -4,8 +4,8 @@ export interface IWorkouts {
   description: string;
   day: string;
   state: boolean;
-  userComment: string | null;
-  commentToDay: string | null;
+  userComment: string | null;//null
+  commentToDay: string | null;//null
   exercisesId: string[];
   userId: string;
 }

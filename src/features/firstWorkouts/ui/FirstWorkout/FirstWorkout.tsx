@@ -17,6 +17,7 @@ export const FirstWorkout = () => {
   const { user } = useUserStore()
   const { data, error } = useGetFirstWorkouts()
   const { endExercise } = useEndExercise()
+  console.log(data)
   const handlerChange = async (exercises: IExercise) => {
     console.log(exercises)
     await endExercise(exercises)
@@ -27,27 +28,22 @@ export const FirstWorkout = () => {
         <StartFirstWorkout error={error?.message} handlerStart={createFirstWorkouts} />
       }
       {
-        user?.FirstWorkoutICheckndicatorId &&
         data &&
         <WorkoutsTitle
           text="Your first workout"
         />
       }
       {
-        user?.FirstWorkoutICheckndicatorId &&
         data &&
         <WorkoutsDate
           date={data.workouts.day} />
       }
 
-      {
-        user?.FirstWorkoutICheckndicatorId &&
-        data &&
+      {data &&
         <WorkoutsExercisesActive
           handler={handlerChange}
           exercises={data.exercises}
-        />
-      }
+        />}
     </View>
   )
 }

@@ -4,7 +4,7 @@ export interface IExercise {
   imgUrl?: string
   name: string;
   state: boolean
-  comment?: string
-  count?: string | null;
-  userCount?: number | null;
+  comment?: string //null
+  count: string
+  userCount?: number | null //null
 }
