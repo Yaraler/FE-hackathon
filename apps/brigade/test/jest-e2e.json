@@ -21,6 +21,7 @@
     "^@app/my-logger(.*)$": "<rootDir>/../../libs/my-logger/src$1",
     "^@app/my-logger/(.*)$": "<rootDir>/../../libs/my-logger/src/$1",
     "^@app/strategy(.*)$": "<rootDir>/../../libs/strategy/src$1",
-    "^@libs/(.*)$": "<rootDir>/../../libs/$1"
+    "^@libs/(.*)$": "<rootDir>/../../libs/$1",
+    "^@shared/(.*)$": "<rootDir>/../../libs/$1"
   }
 }

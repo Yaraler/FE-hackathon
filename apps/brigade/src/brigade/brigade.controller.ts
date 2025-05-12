@@ -14,7 +14,7 @@ export class BrigadeController {
   }
   @MessagePattern("brigade.getBrigade")
   async getBrigade() {
-    //return await this.brigadeService.getBrigade()
+    return await this.brigadeService.getAllBrigade()
   }
   @MessagePattern("brigade.getOneBrigade")
   async getOneBrigade() {

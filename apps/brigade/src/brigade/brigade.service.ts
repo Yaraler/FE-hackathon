@@ -47,29 +47,11 @@ export class BrigadeService {
       throw new InternalServerErrorException('An unexpected error occurred');
     }
   }
-  async getAllBrigade() {
+  async getAllBrigade(): Promise<Brigade[]> {
     try {
-      //      const brigades = await this.brigadeRepository.find();
-      //
-      //      const brigadesWithRequirements = await Promise.all(
-      //        brigades.map(async (brigade) => {
-      //          const requirementIds = brigade.requirementsBrigadeIds.map(id => new ObjectId(id))
-      //          const requirements = await this.requirementsBrigadeRestory.find({
-      //            where: {
-      //              _id: {
-      //                $in: requirementIds
-      //              }
-      //            }
-      //          });
-      //
-      //          return {
-      //            ...brigade,
-      //            requirements,
-      //          };
-      //        })
-      //      );
-      //
-      //      return brigadesWithRequirements;
+      const brigades = await this.brigadeRepository.find();
+
+      return brigades;
     } catch (error) {
       if (error instanceof BadRequestException) {
         throw error;

@@ -47,6 +47,9 @@
       ],
       "@shared/*": [
         "shared/*"
+      ],
+      "fixture/*": [
+        "tests/fixtures/*"
       ]
     }
   }
