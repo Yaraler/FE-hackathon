@@ -41,6 +41,12 @@
       ],
       "@libs/*": [
         "libs/*"
+      ],
+      "@aws/*": [
+        "shared/lib/aws/src/*"
+      ],
+      "@shared/*": [
+        "shared/*"
       ]
     }
   }

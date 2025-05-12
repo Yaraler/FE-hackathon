@@ -4,15 +4,12 @@ import { ObjectId } from 'mongodb';
 import { RequirementsBrigadeService } from '../requirements_brigade/requirements_bridage.service';
 import { Brigade } from './entity/brigade.entity';
 import { CreateBrigadeFileDto } from '@libs/contracts/bridage/createBridage.dto';
-import { AwsService } from 'shared/lib/aws/aws.service';
 import { RequirementsBrigade } from '../requirements_brigade/entity/requirements-brigade.entity';
+import { AwsService } from '@aws/aws.service';
 
 @Injectable()
 export class BrigadeService {
   constructor(
-    @Inject('REQUIREMENT_BRIGADE_REPOSITORY')
-    private requirementsBrigadeRestory: Repository<RequirementsBrigade>,
-
     @Inject(forwardRef(() => RequirementsBrigadeService))
     private readonly requirementsBrigadeService: RequirementsBrigadeService,
     @Inject('BRIGADE_REPOSITORY')
@@ -21,76 +18,58 @@ export class BrigadeService {
   ) { }
   async createBrigade(data: CreateBrigadeFileDto) {
     try {
-      const { requirementsBrigade, shortName, file, ...dataBrigade } = data
-      let requirements: RequirementsBrigade[] = []
+
+
+      const { requirementsBrigade, shortName, file, name, description } = data
+      const transformedRequirements = requirementsBrigade.map((elem, index) => (
+        new RequirementsBrigade(elem.exercise, elem?.minimum, elem?.maximum)
+      ))
       let imgURL: string | undefined
-      if (data.file) {
+      if (file) {
         imgURL = await this.awsService.createPhoto(file)
       }
-      const brigade = this.brigadeRepository.create({
-        ...dataBrigade,
-        image: imgURL,
-        shortName: shortName,
-        requirementsBrigadeIds: []
-      })
-      if (requirementsBrigade) {
-        brigade.requirementsBrigadeIds = await this.requirementsBrigadeService.createManyRequirementsBrigade(requirementsBrigade)
 
-      }
-      console.log("work")
-      const saveBrigade = await this.brigadeRepository.save(brigade)
+      console.log(transformedRequirements)
+      const brigade = new Brigade()
+      brigade.shortName = shortName
+      brigade.name = name
+      brigade.description = description
+      brigade.image = imgURL
+      brigade.requirementsBrigade = transformedRequirements
 
-      return {
-        saveBrigade,
-        requirements
-      }
+      const saveBrigade = await this.brigadeRepository.save(brigade);
+      return { brigade: saveBrigade };
     } catch (error) {
+      console.error(error)
       if (error instanceof BadRequestException) {
         throw error;
       }
       throw new InternalServerErrorException('An unexpected error occurred');
     }
   }
-  async addRequirementRelation(brigadId: string, requirementsId: ObjectId) {
+  async getAllBrigade() {
     try {
-      const brigade = await this.findBrigadeById(brigadId)
-      if (!brigade) {
-        return
-      }
-      brigade?.requirementsBrigadeIds.push(requirementsId.toString())
-      await this.brigadeRepository.save(brigade)
-      return
-    } catch (error) {
-      if (error instanceof BadRequestException) {
-        throw error;
-      }
-      throw new InternalServerErrorException('An unexpected error occurred')
-    }
-
-  }
-  async getBrigade() {
-    try {
-      const brigades = await this.brigadeRepository.find();
-
-      const brigadesWithRequirements = await Promise.all(
-        brigades.map(async (brigade) => {
-          const requirementIds = brigade.requirementsBrigadeIds.map(id => new ObjectId(id))
-          const requirements = await this.requirementsBrigadeRestory.find({
-            where: {
-              _id: {
-                $in: requirementIds
-              }
-            }
-          });
-
-          return {
-            ...brigade,
-            requirements,
-          };
-        })
-      );
-
-      return brigadesWithRequirements;
+      //      const brigades = await this.brigadeRepository.find();
+      //
+      //      const brigadesWithRequirements = await Promise.all(
+      //        brigades.map(async (brigade) => {
+      //          const requirementIds = brigade.requirementsBrigadeIds.map(id => new ObjectId(id))
+      //          const requirements = await this.requirementsBrigadeRestory.find({
+      //            where: {
+      //              _id: {
+      //                $in: requirementIds
+      //              }
+      //            }
+      //          });
+      //
+      //          return {
+      //            ...brigade,
+      //            requirements,
+      //          };
+      //        })
+      //      );
+      //
+      //      return brigadesWithRequirements;
     } catch (error) {
       if (error instanceof BadRequestException) {
         throw error;
@@ -100,24 +79,24 @@ export class BrigadeService {
   }
   async getOneBrigade(brigadeId: string): Promise<any> {
     try {
-      const brigadeRepository = this.brigadeRepository;
-      const brigade = await brigadeRepository.findOneBy({
-        _id: new ObjectId(brigadeId)
-      });
-      if (!brigade) {
-        return null;
-      }
-
-      if (!brigade.requirementsBrigadeIds?.length) {
-        return { ...brigade, requirements: [] };
-      }
-
-      const objectIdsReq = brigade.requirementsBrigadeIds.map(i => new ObjectId(i)) as ObjectId[]
-      const requirements = await this.requirementsBrigadeService.getRequirementsByBrigade(objectIdsReq)
-      return {
-        ...brigade,
-        requirements: requirements
-      };
+      //      const brigadeRepository = this.brigadeRepository;
+      //      const brigade = await brigadeRepository.findOneBy({
+      //        _id: new ObjectId(brigadeId)
+      //      });
+      //      if (!brigade) {
+      //        return null;
+      //      }
+      //
+      //      if (!brigade.requirementsBrigadeIds?.length) {
+      //        return { ...brigade, requirements: [] };
+      //      }
+      //
+      //      const objectIdsReq = brigade.requirementsBrigadeIds.map(i => new ObjectId(i)) as ObjectId[]
+      //      const requirements = await this.requirementsBrigadeService.getRequirementsByBrigade(objectIdsReq)
+      //      return {
+      //        ...brigade,
+      //        requirements: requirements
+      //      };
     } catch (error) {
       throw error;
     }

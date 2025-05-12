@@ -27,7 +27,7 @@ export class CreateBrigadeDto {
     return [];
   })
   @Type(() => CreateRequirementsBrigade)
-  requirementsBrigade?: CreateRequirementsBrigade[];
+  requirementsBrigade: CreateRequirementsBrigade[];
 }
 
 export class CreateBrigadeFileDto extends CreateBrigadeDto {
