@@ -7,6 +7,8 @@ import { Brigade } from "./entity/brigade.entity";
 import { testBrigade } from "../../../../tests/fixtures/brigade.fixture";
 import { RequirementsBrigade } from "../requirements_brigade/entity/requirements-brigade.entity";
 import { RequirementsBrigadeService } from "../requirements_brigade/requirements_bridage.service";
+import { BadRequestException, NotFoundException } from "@nestjs/common";
+import { ObjectId } from "mongodb";
 
 
 
@@ -27,7 +29,13 @@ describe('UserService', () => {
         {
           provide: 'BRIGADE_REPOSITORY',
           useValue: {
-            find: jest.fn().mockResolvedValue(testBrigade),
+            find: jest.fn().mockResolvedValue([testBrigade]),
+            findOneBy: jest.fn(({ _id }) => {
+              if (_id.toString() === testBrigade._id.toString()) {
+                return Promise.resolve(testBrigade);
+              }
+              return Promise.resolve(null);
+            }),
           },
         },
         {
@@ -49,8 +57,21 @@ describe('UserService', () => {
   describe("get all brigade", () => {
     it("should return all brigade", async () => {
       const result = await service.getAllBrigade();
-      expect(result).toEqual(testBrigade)
+      expect(result).toEqual({ brigades: [testBrigade] })
     })
+  })
+  describe("get one", () => {
+    it("should return one brigade", async () => {
+      const result = await service.getOneBrigade(testBrigade._id);
+      expect(result).toEqual({ brigade: testBrigade })
+    })
+    it('should throw BadRequestException for invalid ObjectId', async () => {
+      await expect(service.getOneBrigade('test')).rejects.toThrow(BadRequestException);
+    });
+    it('should throw NotFoundException if brigade not found', async () => {
+      const nonExistingId = new ObjectId().toString();
+      await expect(service.getOneBrigade(nonExistingId)).rejects.toThrow(NotFoundException);
+    });
   })
 })
 

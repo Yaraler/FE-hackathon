@@ -1,9 +1,7 @@
 import { BadRequestException, forwardRef, Inject, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { In, Repository } from 'typeorm';
 import { RequirementsBrigade } from './entity/requirements-brigade.entity';
-import { BrigadeService } from '../brigade/brigade.service';
-import { Brigade } from '../brigade/entity/brigade.entity';
-import { CreateRequirementsBrigade } from '@libs/contracts/bridage/createRequirementBridage';
+import { CreateRequirementsBrigade } from '@libs/contracts/bridage/create-requirement-bridage';
 
 @Injectable()
 export class RequirementsBrigadeService {

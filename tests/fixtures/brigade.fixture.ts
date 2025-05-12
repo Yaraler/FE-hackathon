@@ -1,3 +1,4 @@
+import { CreateBrigadeFileDto } from "@libs/contracts/bridage/create-bridage.dto";
 import { testRequirementsBrigade } from "./requirements-brigade.fixture";
 
 export const testBrigade = {
@@ -10,3 +11,35 @@ export const testBrigade = {
     testRequirementsBrigade
   ]
 }
+
+
+
+export const testCreateBrigadeDto: CreateBrigadeFileDto = {
+  name: 'Alpha Squad',
+  shortName: 'Alpha',
+  description: 'Elite tactical brigade',
+  requirementsBrigade: [
+    {
+      exercise: 'Push-ups',
+      minimum: 20,
+      maximum: 50,
+    },
+    {
+      exercise: 'Running',
+      minimum: 1000,
+      maximum: 3000,
+    },
+  ],
+  file: {
+    fieldname: 'file',
+    originalname: 'brigade-doc.pdf',
+    encoding: '7bit',
+    mimetype: 'application/pdf',
+    size: 123456,
+    buffer: Buffer.from('filecontent'),
+    destination: './uploads',
+    filename: '1234567890.pdf',
+    path: './uploads/1234567890.pdf',
+    stream: null as any,
+  },
+};

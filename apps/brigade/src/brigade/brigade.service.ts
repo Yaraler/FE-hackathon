@@ -1,11 +1,13 @@
-import { BadRequestException, forwardRef, Inject, Injectable, InternalServerErrorException } from '@nestjs/common';
+import { BadRequestException, forwardRef, Inject, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { MongoRepository, Repository } from 'typeorm';
 import { ObjectId } from 'mongodb';
 import { RequirementsBrigadeService } from '../requirements_brigade/requirements_bridage.service';
 import { Brigade } from './entity/brigade.entity';
-import { CreateBrigadeFileDto } from '@libs/contracts/bridage/createBridage.dto';
 import { RequirementsBrigade } from '../requirements_brigade/entity/requirements-brigade.entity';
 import { AwsService } from '@aws/aws.service';
+import { CreateBrigadeFileDto } from '@libs/contracts/bridage/create-bridage.dto';
+import { BrigadeGetAllResponse } from './dto/brigade-all-response.dto';
+import { CreateBrigadeResponseDto } from './dto/create-brigade-response.dto';
 
 @Injectable()
 export class BrigadeService {
@@ -16,10 +18,8 @@ export class BrigadeService {
     private readonly brigadeRepository: MongoRepository<Brigade>,
     private awsService: AwsService
   ) { }
-  async createBrigade(data: CreateBrigadeFileDto) {
+  async createBrigade(data: CreateBrigadeFileDto): Promise<CreateBrigadeResponseDto> {
     try {
-
-
       const { requirementsBrigade, shortName, file, name, description } = data
       const transformedRequirements = requirementsBrigade.map((elem, index) => (
         new RequirementsBrigade(elem.exercise, elem?.minimum, elem?.maximum)
@@ -29,7 +29,6 @@ export class BrigadeService {
         imgURL = await this.awsService.createPhoto(file)
       }
 
-      console.log(transformedRequirements)
       const brigade = new Brigade()
       brigade.shortName = shortName
       brigade.name = name
@@ -37,7 +36,7 @@ export class BrigadeService {
       brigade.image = imgURL
       brigade.requirementsBrigade = transformedRequirements
 
-      const saveBrigade = await this.brigadeRepository.save(brigade);
+      const saveBrigade = await this.brigadeRepository.save(brigade) as Brigade;
       return { brigade: saveBrigade };
     } catch (error) {
       console.error(error)
@@ -47,11 +46,11 @@ export class BrigadeService {
       throw new InternalServerErrorException('An unexpected error occurred');
     }
   }
-  async getAllBrigade(): Promise<Brigade[]> {
+  async getAllBrigade(): Promise<BrigadeGetAllResponse> {
     try {
       const brigades = await this.brigadeRepository.find();
 
-      return brigades;
+      return { brigades: brigades };
     } catch (error) {
       if (error instanceof BadRequestException) {
         throw error;
@@ -61,24 +60,19 @@ export class BrigadeService {
   }
   async getOneBrigade(brigadeId: string): Promise<any> {
     try {
-      //      const brigadeRepository = this.brigadeRepository;
-      //      const brigade = await brigadeRepository.findOneBy({
-      //        _id: new ObjectId(brigadeId)
-      //      });
-      //      if (!brigade) {
-      //        return null;
-      //      }
-      //
-      //      if (!brigade.requirementsBrigadeIds?.length) {
-      //        return { ...brigade, requirements: [] };
-      //      }
-      //
-      //      const objectIdsReq = brigade.requirementsBrigadeIds.map(i => new ObjectId(i)) as ObjectId[]
-      //      const requirements = await this.requirementsBrigadeService.getRequirementsByBrigade(objectIdsReq)
-      //      return {
-      //        ...brigade,
-      //        requirements: requirements
-      //      };
+      if (!ObjectId.isValid(brigadeId)) {
+        throw new BadRequestException('Invalid brigade ID');
+      }
+      const brigadeRepository = this.brigadeRepository;
+      const brigade = await brigadeRepository.findOneBy({
+        _id: new ObjectId(brigadeId)
+      });
+      if (!brigade) {
+        throw new NotFoundException(`Brigade  not found`);
+      }
+      return {
+        brigade,
+      };
     } catch (error) {
       throw error;
     }

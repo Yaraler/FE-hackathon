@@ -111,7 +111,8 @@
       "^@app/guards(|/.*)$": "<rootDir>/libs/guards/src/$1",
       "^@app/my-logger(|/.*)$": "<rootDir>/libs/my-logger/src/$1",
       "^@app/strategy(|/.*)$": "<rootDir>/libs/strategy/src/$1",
-      "^@aws/(.*)$": "<rootDir>/shared/lib/aws/src/$1"
+      "^@aws/(.*)$": "<rootDir>/shared/lib/aws/src/$1",
+      "^@libs/(.*)$": "<rootDir>/libs/$1"
     }
   }
 }
