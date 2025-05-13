@@ -21,9 +21,7 @@ export class BrigadeService {
   async createBrigade(data: CreateBrigadeFileDto): Promise<CreateBrigadeResponseDto> {
     try {
       const { requirementsBrigade, shortName, file, name, description } = data
-      const transformedRequirements = requirementsBrigade.map((elem, index) => (
-        new RequirementsBrigade(elem.exercise, elem?.minimum, elem?.maximum)
-      ))
+      const transformedRequirements = await this.requirementsBrigadeService.transformRequirementsBrigade(requirementsBrigade)
       let imgURL: string | undefined
       if (file) {
         imgURL = await this.awsService.createPhoto(file)

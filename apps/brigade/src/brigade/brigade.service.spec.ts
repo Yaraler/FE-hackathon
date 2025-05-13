@@ -18,7 +18,7 @@ const requirementsBrigadeMock = {}
 const awsMock = {
   createPhoto: jest.fn().mockResolvedValue("mocked-photo-url"),
 };
-describe('UserService', () => {
+describe('Brigade', () => {
   let service: BrigadeService
   let db: MongoRepository<Brigade>
   let aws: AwsService

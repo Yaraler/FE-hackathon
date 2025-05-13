@@ -12,13 +12,12 @@ export class RequirementsBrigadeService {
   async transformRequirementsBrigade(requirementsBrigade: CreateRequirementsBrigade[]
   ): Promise<RequirementsBrigade[]> {
     try {
-      const transformedRequirements = requirementsBrigade.map((elem, index) => (
+      const traansformedRequirements = requirementsBrigade.map((elem, index) => (
         new RequirementsBrigade(elem.exercise, elem?.minimum, elem?.maximum)
       ))
 
-      return transformedRequirements;
+      return traansformedRequirements;
     } catch (error) {
-      console.log(error)
       if (error instanceof BadRequestException) {
         throw error;
       }

@@ -1,8 +1,6 @@
 import { Controller } from '@nestjs/common';
 import { DailyWorkoutsService } from './daily-workouts.service';
 import { MessagePattern } from '@nestjs/microservices';
-import { IExercises } from '@libs/contracts/user-indicators/ICheckingIndicator';
-import { Exercises } from '../exercises/entity/exercises';
 
 @Controller('daily-workouts')
 export class DailyWorkoutsController {
