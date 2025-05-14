@@ -17,7 +17,7 @@ import { AwsModule } from '@aws/aws.module';
     RequirementsBrigadeModule,
   ],
   controllers: [BrigadeController],
-  providers: [BrigadeService, ...brigadeProviders],
+  providers: [BrigadeService, ...brigadeProviders, ...requirementsBrigadeProviders],
   exports: [BrigadeService, ...brigadeProviders],
 })
 export class BrigadeModule { }

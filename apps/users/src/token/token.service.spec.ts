@@ -35,7 +35,6 @@ describe('TokenService', () => {
     })
   })
 
-
   describe("Verify token", () => {
     it("Should return data token", async () => {
       const result = await service.verfiftyRefreshToken("token")
