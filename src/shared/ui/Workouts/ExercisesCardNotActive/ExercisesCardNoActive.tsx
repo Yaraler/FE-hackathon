@@ -8,7 +8,7 @@ export const ExercisesCardNoActive: React.FC<ExercisesCardNoActiveProps> = ({ ex
     <View style={styles.container}>
       <Text style={styles.textTile}>{exercise.name}</Text>
       <Text style={styles.countText}>Кі́лькість:{exercise.userCount ? exercise.userCount : 7}</Text>
-      <Text>{exercise.comment ? exercise.comment
+      <Text style={styles.descriptionText}>{exercise.comment ? exercise.comment
         :
         "Дякую за вашу вправну працю! Ваші зусилля значно підвищують наш рівень"}</Text>
     </View>
@@ -25,9 +25,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   },
   countText: {
+    marginTop: 5,
+
     fontSize: 22
   },
   descriptionText: {
-    fontSize: 24
+    marginTop: 20,
+    fontSize: 23
   }
 })

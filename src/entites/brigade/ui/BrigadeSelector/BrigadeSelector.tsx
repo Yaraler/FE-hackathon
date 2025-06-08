@@ -53,13 +53,11 @@ const styles = StyleSheet.create({
     color: 'white',
     alignSelf: 'center',
     fontSize: 32,
+    marginTop: -20,
     fontWeight: 'bold',
-    paddingBottom: 70,
   },
   grid: {
-    flex: 1,
-    padding: 16,
-    paddingTop: 100,
+    height: "90%"
   },
   row: {
     flexDirection: 'row',

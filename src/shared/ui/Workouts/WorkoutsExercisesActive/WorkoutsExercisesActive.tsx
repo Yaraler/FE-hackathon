@@ -21,7 +21,7 @@ export const WorkoutsExercisesActive: React.FC<WorkoutsExercisesActiveProps> = (
   }
 
   const handlerChange = async (_id: string) => {
-    setTimeout(() => setClose(true), 5000)
+    setTimeout(() => setClose(true), 1000)
     const res = userExercises.find((element) => element._id == _id);
     if (!res) return
     await endExercise(res)
@@ -68,6 +68,8 @@ export const WorkoutsExercisesActive: React.FC<WorkoutsExercisesActiveProps> = (
         handlerAdd={() => handlerAdd(userExercises[currentExercises]._id)}
         handlerEnd={() => handlerChange(userExercises[currentExercises]._id)}
         handlerNext={handlerNext}
+        close={close}
+
         handlerPrevious={handlerPreviuos}
         exercise={userExercises[currentExercises]} />
     </View>

@@ -12,6 +12,7 @@ export const UserIcon: React.FC<UserIconProps> = ({ icon }) => {
 }
 const styles = StyleSheet.create({
   img: {
+    borderRadius: 50,
     width: 93,
     height: 93
   }
