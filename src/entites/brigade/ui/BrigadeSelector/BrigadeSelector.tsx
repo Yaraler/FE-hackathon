@@ -10,7 +10,7 @@ import { BrigadeSelectorCard } from "../BrigadeSelectorCard/BrigadeSelectorCard"
 
 
 export const BrigadeSelector: React.FC<BrigadeSelectorProps> = ({ handlerSubmit, setValue, stateRegister, handlerNextPage }) => {
-  const { data, isLoading, error } = useGetBrigadesQuery()
+  const {data, isLoading, error} = useGetBrigadesQuery()
   const [brigade, setBrigade] = useState<IBrigade | undefined>()
 
   const handlerChooseSubmit = async (id: string) => {
@@ -29,41 +29,66 @@ export const BrigadeSelector: React.FC<BrigadeSelectorProps> = ({ handlerSubmit,
   }
   return (
 
-    <View style={styles.grid}>
+      <View style={styles.container}>
+        {/* Обертка для первых двух карточек */}
+        {stateRegister == 1 && (
+            <Text style={styles.title}>Choose your team</Text>
+        )}
 
-      {stateRegister == 1 && (
-        <Text style={styles.title}>Choose your team</Text>
-      )}
-      {stateRegister == 1 &&
-        <BrigadeSelectorCard brigades={data} handlerBrigadeInfo={handlerBrigadeInfo} />
-      }
+        {stateRegister == 1 && (
+            <View style={styles.grid}>
+              {data?.map((brigade, index) => (
+                  <View
+                      key={brigade._id}
+                      style={[
+                        styles.cardContainer,
+                        index % 2 === 0 ? styles.leftCard : styles.rightCard
+                      ]}
+                  >
+                    <CardBrigade
+                        brigade={brigade}
+                        handler={() => handlerBrigadeInfo(brigade)}
+                    />
+                  </View>
+              ))}
 
-      {stateRegister == 2 && brigade && (
-        <BrigadeChooseInfo
-          handlerSubmit={handlerChooseSubmit}
-          brigade={brigade}
-        />
-      )}
-    </View>
-  )
-}
+        )}
+            </View>
+        )}
+
+        {/* Блок BrigadeChooseInfo (оставляем как было) */}
+        {stateRegister == 2 && brigade && (
+            <BrigadeChooseInfo
+                handlerSubmit={handlerChooseSubmit}
+                brigade={brigade}
+            />
+        )}
+      </View>
+  )}
+
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+
+  },
   title: {
     color: 'white',
-    alignSelf: 'center',
+    paddingTop:100,
     fontSize: 32,
-    marginTop: -20,
     fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 60,
   },
   grid: {
-    height: "90%"
-  },
-  row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 20,
+    marginBottom: 16,
+
   },
-  centerCard: {
-  }
-})
+  cardContainer: {
+    width: '48%',
+    aspectRatio: 1,
+  },
+});

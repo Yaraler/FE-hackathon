@@ -87,6 +87,10 @@ export const AuthForm: React.FC<AuthFormProps> = ({ typePage, setStateRegister, 
 
 const styles = StyleSheet.create({
 
+  },
+  buttonsContainer: {
+    marginTop: 30,
+
 
 
 });

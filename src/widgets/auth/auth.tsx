@@ -17,20 +17,20 @@ export const Auth: React.FC<AuthProps> = ({ typePage }) => {
 
   return (
 
-    <ImageBackground
-      source={require("../../../assets/images/registration.png")}
-      resizeMode='cover'
-      style={styles.back}
-    >
-      <View style={styles.container}>
-        {!stateRegister && <AuthTitle text={typePage} />}
-        <AuthForm typePage={typePage} stateRegister={stateRegister} setStateRegister={setStateRegister} />
-        {!stateRegister && <AuthLink typePage={typePage} />}
-      </View>
-    </ImageBackground>
+
+      <ImageBackground
+          source={require("../../../assets/images/registration.png")}
+          resizeMode='cover'
+          style={styles.back}
+      >
+        <View style={styles.container}>
+          {!stateRegister && <AuthTitle text={typePage} />}
+          <AuthForm typePage={typePage} stateRegister={stateRegister} setStateRegister={setStateRegister} />
+          {!stateRegister && <AuthLink typePage={typePage} />}
+        </View>
+      </ImageBackground>
   );
 };
-
 const styles = StyleSheet.create({
   back: {
     flex: 1,
