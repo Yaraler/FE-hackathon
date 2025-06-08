@@ -21,7 +21,7 @@ export const UserMain = () => {
 const styles = StyleSheet.create({
   container: {
     display: "flex",
-    marginTop: 10,
+    marginTop: 30,
     flexDirection: "row",
     width: vw(90),
     alignItems: "flex-start",

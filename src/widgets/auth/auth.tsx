@@ -3,6 +3,7 @@ import { AuthForm, AuthLink } from "@/features/auth"
 import { AuthTitle } from "@/features/auth/ui/AuthTitle/AuthTitle"
 import { AuthProps } from "@/shared/type/AuthProps/type"
 import { View, Text, StyleSheet, ImageBackground, } from "react-native"
+import { vh, vw } from "react-native-css-vh-vw";
 
 
 
@@ -15,6 +16,7 @@ export const Auth: React.FC<AuthProps> = ({ typePage }) => {
 
 
   return (
+
 
       <ImageBackground
           source={require("../../../assets/images/registration.png")}
@@ -36,7 +38,11 @@ const styles = StyleSheet.create({
     height: 917,
   },
   container: {
-    flex: 1,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    height: vh(100),
   }
 })
 

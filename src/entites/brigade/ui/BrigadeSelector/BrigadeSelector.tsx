@@ -28,6 +28,7 @@ export const BrigadeSelector: React.FC<BrigadeSelectorProps> = ({ handlerSubmit,
     handlerNextPage()
   }
   return (
+
       <View style={styles.container}>
         {/* Обертка для первых двух карточек */}
         {stateRegister == 1 && (
@@ -70,6 +71,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+
   },
   title: {
     color: 'white',
@@ -83,6 +85,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 16,
+
   },
   cardContainer: {
     width: '48%',

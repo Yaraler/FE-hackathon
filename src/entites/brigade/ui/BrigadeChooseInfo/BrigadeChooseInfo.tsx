@@ -3,10 +3,14 @@ import { BrigadeChooseInfoProps } from "./type"
 import { BrigadeRequirements } from "../requirement/BrigadeRequirements/BrigadeRequirements"
 import { ItemButton } from "@/shared/ui/ItemButton/ItemButton"
 
+
+
+
 export const BrigadeChooseInfo: React.FC<BrigadeChooseInfoProps> = ({ brigade, handlerSubmit }) => {
 
   return (
     <View>
+
       <Image
         source={{
           uri: brigade.image
@@ -26,10 +30,12 @@ export const BrigadeChooseInfo: React.FC<BrigadeChooseInfoProps> = ({ brigade, h
         handleSubmit={() => handlerSubmit(brigade._id)}
       />
     </View>
+
     </View>
   )
 }
 const styles = StyleSheet.create({
+
     text:{
         marginTop:80,
         color:"white",
@@ -65,3 +71,4 @@ const styles = StyleSheet.create({
             elevation: 5, // для Android
         }
 })
+

@@ -1,11 +1,13 @@
 import React from "react"
 import { Image, Platform, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { ItemFooterBarProps } from "./type"
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 
 export const ItemFooterBar: React.FC<ItemFooterBarProps> = ({ name, link, icon }) => {
   const router = useRouter();
   const handlerNav = () => router.navigate(link)
+  const local = useLocalSearchParams();
+  console.log(local)
   return (
     <TouchableOpacity onPress={handlerNav} style={styles.container}>
       <Image

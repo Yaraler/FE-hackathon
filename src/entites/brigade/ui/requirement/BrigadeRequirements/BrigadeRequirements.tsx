@@ -4,6 +4,7 @@ import { ItemBrigadeRequirement } from "../ItemBrigadeRequirement/ItemBrigadeReq
 import { IRequirement } from "@/entites/brigade/type/IRequirements"
 
 
+
 type Props = BrigadeRequirementsProps & {
   containerStyle?: ViewStyle;
   itemStyle?: ViewStyle;
@@ -24,6 +25,7 @@ export const BrigadeRequirements: React.FC<BrigadeRequirementsProps> = ({require
             />
         ))}
       </View>
+
   )
 }
 

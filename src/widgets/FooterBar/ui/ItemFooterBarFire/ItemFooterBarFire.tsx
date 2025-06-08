@@ -1,6 +1,7 @@
 import { Image, StyleSheet, TouchableOpacity, View } from "react-native"
 import { ItemFooterBarProps } from "../ItemFooterBar/type"
 import { useRouter } from "expo-router";
+import { Colors } from "@/shared/constants/Colors";
 
 export const ItemFooterBarFire: React.FC<ItemFooterBarProps> = ({ icon, link }) => {
   const router = useRouter();
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: Colors.secondary,
     width: 92,
     height: 92
   },

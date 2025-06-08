@@ -3,6 +3,7 @@ import { Text, StyleSheet, Pressable, View } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import { loginLinkData, registrationLinkData } from "./data/authLink.data";
 import { AuthProps } from "@/shared/type/AuthProps/type";
+import { Colors } from "@/shared/constants/Colors";
 
 
 export const AuthLink: React.FC<AuthProps> = ({ typePage }) => {
@@ -20,7 +21,6 @@ export const AuthLink: React.FC<AuthProps> = ({ typePage }) => {
 
         <Text style={[
           styles.link,
-          typePage === 'login' ? styles.login : styles.register
         ]}>
           {typePage === 'login' ? registrationLinkData.text : loginLinkData.text}
         </Text>
@@ -31,14 +31,12 @@ export const AuthLink: React.FC<AuthProps> = ({ typePage }) => {
 const styles = StyleSheet.create({
   link: {
     textDecorationLine: 'underline',
-    color:"white",
+    color: Colors.text,
     fontWeight: '500',
-    paddingTop: 20,
     textAlign: 'center',
     fontSize: 16,
-
   },
-  text:{
-    color:"white",
+  text: {
+    color: "white",
   }
 });

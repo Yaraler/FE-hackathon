@@ -7,8 +7,12 @@ const tintColorLight = '#0a7ea4';
 const tintColorDark = '#fff';
 
 export const Colors = {
-  main: "#D8D8D8",
-  secondary: "#939393",
-  background: "rgb(242, 242, 242)",
-  text: "black"
+  main: "white",
+  secondary: "#EE9033",
+  background: "black",
+  text: "white",
+  secondaryText: "black",
+  ornageText: "#EE9033",
+
+
 };

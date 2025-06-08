@@ -1,5 +1,5 @@
 
-import { Image, StyleSheet, Text, View,TouchableOpacity} from "react-native"
+import { Image, StyleSheet, Text, View, TouchableOpacity } from "react-native"
 
 import { CardBrigadeProps } from "./type"
 
@@ -14,7 +14,7 @@ export const CardBrigade: React.FC<CardBrigadeProps> = ({ brigade, handler }) =>
         }}
         resizeMode="cover"
       />
-      <Text>shortName</Text>
+      <Text style={styles.text}>{brigade.shortName}</Text>
     </TouchableOpacity>
   )
 
@@ -22,18 +22,22 @@ export const CardBrigade: React.FC<CardBrigadeProps> = ({ brigade, handler }) =>
 
 const styles = StyleSheet.create({
   card: {
-      width: 160,
-      height: 180,
-      alignItems: 'center',
-      justifyContent: 'center',
-      margin: 8,
-      padding: 10,
+    width: 160,
+    height: 180,
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 8,
+    padding: 10,
 
+  },
+  text: {
+    fontSize: 20,
+    color: "white"
   },
   brigadeImg: {
     width: 145,
     height: 150,
-      resizeMode:"cover"
+    resizeMode: "cover"
   }
 
 })
